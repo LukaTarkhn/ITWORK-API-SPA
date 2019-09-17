@@ -1,0 +1,7 @@
+<div>
+  <button (click)="logOrReg = false">log in</button>
+  <button (click)="logOrReg = true">registration</button>
+</div>
+
+<app-authorization *ngIf="!logOrReg"></app-authorization>
+<app-registration *ngIf="logOrReg" [valuesFromHome]='values'></app-registration>

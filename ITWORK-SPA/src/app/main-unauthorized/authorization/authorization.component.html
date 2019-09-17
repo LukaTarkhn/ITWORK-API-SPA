@@ -1,0 +1,9 @@
+<h1>Log In</h1>
+<form *ngIf="!loggedIn()" #loginForm="ngForm" (ngSubmit)="login()">
+  <input type="text" placeholder="Username" name="username" required [(ngModel)]="model.username"/>
+  <input type="password" placeholder="Password" name="password" required [(ngModel)]="model.password"/>
+  <button [disabled]="!loginForm.valid" type="submit">Login</button>
+</form>
+
+<app-main-authorized *ngIf="loggedIn()"></app-main-authorized>
+<button (click)="logout()"  *ngIf="loggedIn()">logout</button>
