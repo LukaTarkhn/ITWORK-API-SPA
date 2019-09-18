@@ -4,6 +4,14 @@
   <input type="password" placeholder="Password" name="password" required [(ngModel)]="model.password"/>
   <button [disabled]="!loginForm.valid" type="submit">Login</button>
 </form>
-
-<app-main-authorized *ngIf="loggedIn()"></app-main-authorized>
-<button (click)="logout()"  *ngIf="loggedIn()">logout</button>
+<!-- user name -->
+<p>{{authService.decodedToken?.unique_name}}</p>
+<!-- /user name -->
+<div class="dropdown"  *ngIf="loggedIn()">
+  <button class="dropbtn">Welcome </button>
+  <div class="dropdown-content">
+    <a href="#">Edit Profile</a>
+    <a href="#">Link 2</a>
+    <a href="#" (click)="logout()">Log Out</a>
+  </div>
+</div>
