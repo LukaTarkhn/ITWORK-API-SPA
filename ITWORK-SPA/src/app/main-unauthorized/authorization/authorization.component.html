@@ -4,6 +4,4 @@
   <input type="password" placeholder="Password" name="password" required [(ngModel)]="model.password"/>
   <button [disabled]="!loginForm.valid" type="submit">Login</button>
 </form>
-<!-- user name -->
-<p>{{authService.decodedToken?.unique_name}}</p>
-<!-- /user name -->
+
