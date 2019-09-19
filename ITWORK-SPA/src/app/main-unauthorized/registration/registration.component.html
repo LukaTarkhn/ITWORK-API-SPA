@@ -1,8 +1,5 @@
 <h1>Register</h1>
 <form #registerForm="ngForm" (ngSubmit)="register()">
-    <select name="type" id="profileType">
-        <option *ngFor="let value of valuesFromHome" [value]="value">{{value.name}}</option>
-    </select>
     <input type="text" placeholder="Username" required name="username" [(ngModel)]="model.username"/>
     <input type="password" placeholder="Password" required name="password" [(ngModel)]="model.password"/>
     <button type="submit">Register</button>

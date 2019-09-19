@@ -26,14 +26,4 @@ export class AuthorizationComponent implements OnInit {
       this.router.navigate(['/in']);
     });
   }
-
-  loggedIn() {
-    return this.authService.loggedIn();
-  }
-
-  logout() {
-    localStorage.removeItem('token');
-    this.alertify.message('logged out');
-    this.router.navigate(['/']);
-  }
 }

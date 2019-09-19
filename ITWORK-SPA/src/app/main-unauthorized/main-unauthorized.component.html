@@ -1,8 +1,6 @@
+<p>First Page, open when not logged in</p>
 <div>
     <button (click)="logOrReg = false" [routerLink]="['/sign_in']">log in</button>
     <button (click)="logOrReg = true" [routerLink]="['/sign_up']">registration</button>
-  </div>
-  
-  <app-authorization *ngIf="!logOrReg"></app-authorization>
-  <app-registration *ngIf="logOrReg" [valuesFromHome]='values'></app-registration>
+</div>
   

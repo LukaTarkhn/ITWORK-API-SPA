@@ -6,12 +6,15 @@ import { AuthorizationComponent } from './main-unauthorized/authorization/author
 import { RegistrationComponent } from './main-unauthorized/registration/registration.component';
 import { MainAuthorizedComponent } from './main-authorized/main-authorized.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { AuthorizedGuard } from './_guards/authorized.guard';
 
 const routes: Routes = [
-  { path: '', component: MainUnauthorizedComponent },
   {
     path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthorizedGuard],
     children: [
+      { path: '', component: MainUnauthorizedComponent },
       { path: 'sign_in', component: AuthorizationComponent },
       { path: 'sign_up', component: RegistrationComponent }
     ]

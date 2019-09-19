@@ -1,5 +1,5 @@
 <h1>Log In</h1>
-<form *ngIf="!loggedIn()" #loginForm="ngForm" (ngSubmit)="login()">
+<form #loginForm="ngForm" (ngSubmit)="login()">
   <input type="text" placeholder="Username" name="username" required [(ngModel)]="model.username"/>
   <input type="password" placeholder="Password" name="password" required [(ngModel)]="model.password"/>
   <button [disabled]="!loginForm.valid" type="submit">Login</button>
@@ -7,11 +7,3 @@
 <!-- user name -->
 <p>{{authService.decodedToken?.unique_name}}</p>
 <!-- /user name -->
-<div class="dropdown"  *ngIf="loggedIn()">
-  <button class="dropbtn">Welcome </button>
-  <div class="dropdown-content">
-    <a href="#">Edit Profile</a>
-    <a href="#">Link 2</a>
-    <a href="#" (click)="logout()">Log Out</a>
-  </div>
-</div>
