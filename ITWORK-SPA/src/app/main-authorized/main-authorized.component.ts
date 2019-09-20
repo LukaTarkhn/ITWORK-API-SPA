@@ -10,7 +10,7 @@ import { AuthService } from '../_services/auth.service';
 })
 export class MainAuthorizedComponent implements OnInit {
 
-  constructor(public authService: AuthService,private alertify: AlertifyService, private router: Router) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
   }
