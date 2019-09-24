@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 
 // components
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +20,16 @@ import { AlertifyService } from './_services/alertify.service';
 // guards
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthorizedGuard } from './_guards/authorized.guard';
+import { UserService } from './_services/user.service';
+import { MemberCardComponent } from './main-authorized/members/member-card/member-card.component';
+import { MemberListComponent } from './main-authorized/members/member-list/member-list.component';
+import { MemberDetailComponent } from './main-authorized/members/member-detail/member-detail.component';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -27,20 +37,33 @@ import { AuthorizedGuard } from './_guards/authorized.guard';
       MainAuthorizedComponent,
       MainUnauthorizedComponent,
       AuthorizationComponent,
-      RegistrationComponent
+      RegistrationComponent,
+      MemberCardComponent,
+      MemberListComponent,
+      MemberDetailComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      JwtModule.forRoot({
+         config: {
+            tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      })
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
-      AuthorizedGuard
+      AuthorizedGuard,
+      UserService,
+      MemberDetailResolver,
+      MemberListResolver
    ],
    bootstrap: [
       AppComponent

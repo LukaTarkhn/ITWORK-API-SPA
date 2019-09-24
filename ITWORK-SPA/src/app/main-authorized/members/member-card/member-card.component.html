@@ -1,0 +1,8 @@
+<h3>{{user.username}}</h3>
+<div>
+  <img src="{{user.photoUrl}}" alt="{{user.username}}">
+  <button [routerLink]="['/in/', user.id]">User</button>
+  <button>Follow</button>
+  <button>Message</button>
+</div>
+
