@@ -18,6 +18,7 @@ namespace ITWORK.API.Helpers
                 opt.MapFrom(src => src.Photos.FirstOrDefault().Url);
             });
             CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<UserForUpdateDto, User> ();
         }
     }
 }

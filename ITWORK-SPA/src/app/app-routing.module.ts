@@ -10,6 +10,9 @@ import { AuthorizedGuard } from './_guards/authorized.guard';
 import { MemberDetailComponent } from './main-authorized/members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './main-authorized/members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   {
@@ -31,7 +34,10 @@ const routes: Routes = [
       { path: 'in', component: MainAuthorizedComponent,
         resolve: {users: MemberListResolver}},
       { path: 'in/:id', component: MemberDetailComponent,
-        resolve: {user: MemberDetailResolver}}
+        resolve: {user: MemberDetailResolver}},
+      { path: 'edit', component: MemberEditComponent,
+        resolve: {user: MemberEditResolver},
+        canDeactivate: [PreventUnsavedChanged]}
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
