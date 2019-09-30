@@ -11,14 +11,16 @@ namespace ITWORK.API.Helpers
         {
             CreateMap<User, UserForListDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
-                opt.MapFrom(src => src.Photos.FirstOrDefault().Url);
+                opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
             });
             CreateMap<User, UserForDetailedDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
-                opt.MapFrom(src => src.Photos.FirstOrDefault().Url);
+                opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
             });
             CreateMap<Photo, PhotosForDetailedDto>();
-            CreateMap<UserForUpdateDto, User> ();
+            CreateMap<UserForUpdateDto, User>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }

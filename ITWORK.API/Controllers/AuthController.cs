@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using ITWORK.API.Data;
 using ITWORK.API.Dtos;
 using ITWORK.API.Modules;
@@ -18,9 +19,12 @@ namespace ITWORK.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        private readonly IMapper _mapper;
+
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _config = config;
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -71,8 +75,11 @@ namespace ITWORK.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescripter);
 
+            var user = _mapper.Map<UserForListDto>(userForRepo);
+
             return Ok(new {
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                user
             });
         }
     }

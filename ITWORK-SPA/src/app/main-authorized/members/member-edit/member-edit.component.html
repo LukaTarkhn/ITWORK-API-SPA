@@ -1,5 +1,5 @@
 <h3>Your Profile</h3>
-
+<img style="width: 130px; height: 130px;" src="{{photoUrl}}">
 <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()" >
   <h4>username Edit</h4>
   <textarea name="username" rows="4" [(ngModel)]="user.username"></textarea>
@@ -8,3 +8,8 @@
 </form>
 
 <button [disabled]="!editForm.dirty" form="editForm">Save</button>
+
+
+<h3>Photos</h3>
+
+<app-member-photo-editor [photos]="user.photos" (getMemberPhotoChange)="updateMainPhoto($event)"></app-member-photo-editor>

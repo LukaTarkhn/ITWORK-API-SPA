@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
+import { FileUploadModule } from 'ng2-file-upload';
 
 // components
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +12,14 @@ import { MainUnauthorizedComponent } from './main-unauthorized/main-unauthorized
 import { MainAuthorizedComponent } from './main-authorized/main-authorized.component';
 import { AuthorizationComponent } from './main-unauthorized/authorization/authorization.component';
 import { RegistrationComponent } from './main-unauthorized/registration/registration.component';
+import { MemberCardComponent } from './main-authorized/members/member-card/member-card.component';
+import { MemberListComponent } from './main-authorized/members/member-list/member-list.component';
+import { MemberDetailComponent } from './main-authorized/members/member-detail/member-detail.component';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './main-authorized/members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { MemberPhotoEditorComponent } from './main-authorized/members/member-edit/member-photo-editor/member-photo-editor.component';
 
 // services
 import { AuthService } from './_services/auth.service';
@@ -21,13 +30,6 @@ import { AlertifyService } from './_services/alertify.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthorizedGuard } from './_guards/authorized.guard';
 import { UserService } from './_services/user.service';
-import { MemberCardComponent } from './main-authorized/members/member-card/member-card.component';
-import { MemberListComponent } from './main-authorized/members/member-list/member-list.component';
-import { MemberDetailComponent } from './main-authorized/members/member-detail/member-detail.component';
-import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
-import { MemberListResolver } from './_resolvers/member-list.resolver';
-import { MemberEditComponent } from './main-authorized/members/member-edit/member-edit.component';
-import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
 
 export function tokenGetter() {
@@ -44,13 +46,15 @@ export function tokenGetter() {
       MemberCardComponent,
       MemberListComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      MemberPhotoEditorComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
+      FileUploadModule,
       JwtModule.forRoot({
          config: {
             tokenGetter,
