@@ -1,5 +1,5 @@
 <h3>Your Profile</h3>
-<img style="width: 130px; height: 130px;" src="{{photoUrl}}">
+<img style="width: 130px; height: 130px;" src="{{photoUrl || '../../../../../../assets/user.png'}}">
 <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()" >
   <h4>username Edit</h4>
   <textarea name="username" rows="4" [(ngModel)]="user.username"></textarea>

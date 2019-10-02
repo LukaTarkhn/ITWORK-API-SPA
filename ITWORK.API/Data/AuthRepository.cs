@@ -60,9 +60,9 @@ namespace ITWORK.API.Data
             }
         }
 
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username, string email)
         {
-            if (await _context.Users.AnyAsync(x => x.Username == username))
+            if (await _context.Users.AnyAsync(x => x.Username == username || x.Email == email))
                 return true;
 
             return false;

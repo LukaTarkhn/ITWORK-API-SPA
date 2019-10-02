@@ -1,6 +1,16 @@
 <h1>Register</h1>
-<form #registerForm="ngForm" (ngSubmit)="register()">
-    <input type="text" placeholder="Username" required name="username" [(ngModel)]="model.username"/>
-    <input type="password" placeholder="Password" required name="password" [(ngModel)]="model.password"/>
-    <button type="submit">Register</button>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+    <input type="text" placeholder="Username" formControlName="username"/>
+    <p style="color: red" *ngIf="registerForm.get('username').errors && registerForm.get('username').touched">Please choose a username</p> <br>
+    <input type="text" placeholder="email" formControlName="email"/>
+    <p style="color: red" *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched">Email is required</p> 
+    <p style="color: red" *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched">Please insert email format</p> <br>
+    <input type="password" placeholder="Password" formControlName="password"/>
+    <p style="color: red" *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">Password is required</p>
+    <p style="color: red" *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched">Password must be at least 4 characters</p>
+    <p style="color: red" *ngIf="registerForm.get('password').hasError('maxlength') && registerForm.get('password').touched">Password cannot exceed 8 characters</p> <br>
+    <input type="password" placeholder="Confirm Password" formControlName="confirmPassword"/>
+    <p style="color: red" *ngIf="registerForm.get('confirmPassword').hasError('required') && registerForm.get('confirmPassword').touched">Confirm password is required</p>
+    <p style="color: red" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword').touched">Passwords must match</p> <br>
+    <button type="submit" [disabled]="!registerForm.valid">Register</button>
 </form>
