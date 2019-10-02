@@ -5,11 +5,11 @@
 </p>
 
 <p>
-  last active: {{user.lastAction}}
+  last active: {{user.lastAction | timeAgo}}
 </p>
 
 <p>
- member since: {{user.created}}
+ member since: {{user.created | date: 'short'}}
 </p>
 <button>Follow</button>
 <button>Message</button>

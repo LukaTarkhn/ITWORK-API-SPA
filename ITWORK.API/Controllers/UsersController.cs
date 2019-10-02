@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ITWORK.API.Data;
 using ITWORK.API.Dtos;
+using ITWORK.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITWORK.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
