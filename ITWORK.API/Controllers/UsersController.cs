@@ -55,7 +55,7 @@ namespace ITWORK.API.Controllers
 
             _mapper.Map(userForUpdateDto, userFromRepo);
 
-            if (await _repo.saveAll())
+            if (await _repo.SaveAll())
                 return NoContent();
             
             throw new Exception($"Update user {id} failed on save");

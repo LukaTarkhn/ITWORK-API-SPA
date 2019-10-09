@@ -12,5 +12,6 @@ namespace ITWORK.API.Dtos
         public DateTime LastAction { get; set; }
         public string PhotoUrl { get; set; }
         public ICollection<PhotosForDetailedDto> Photos { get; set; }
+        public ICollection<OrganizationForDetailedDto> Organizations { get; set; }
     }
 }

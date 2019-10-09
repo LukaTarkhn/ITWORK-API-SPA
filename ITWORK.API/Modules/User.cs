@@ -13,6 +13,6 @@ namespace ITWORK.API.Modules
         public DateTime Created { get; set; }
         public DateTime LastAction { get; set; }
         public ICollection<Photo> Photos { get; set; }
-        
+        public ICollection<Organization> Organizations { get; set; }
     }
 }

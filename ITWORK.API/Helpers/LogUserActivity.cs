@@ -17,8 +17,7 @@ namespace ITWORK.API.Helpers
             var repo = resultContext.HttpContext.RequestServices.GetService<IUsersRepository>();
             var user = await repo.GetUser(userId);
             user.LastAction = DateTime.Now;
-            await repo.saveAll();
-
+            await repo.SaveAll();
         }
     }
 }

@@ -1,12 +1,32 @@
-<p>You are authorized!!</p>
-
-<div class="dropdown">
-  <img src="{{photoUrl || '../../../../assets/user.png'}}" style="width:  50px; height: 50px;" >
-  <button class="dropbtn">Welcome, {{authService.decodedToken?.unique_name}}</button>
-  <div class="dropdown-content">
-    <a href="#" [routerLink]="['/edit']">Edit Profile</a>
-    <a href="#" (click)="logout()">Log Out</a>
-  </div>
+<div style="display: flex">
+    <img src="{{photoUrl || '../../../../assets/user.png'}}" style="width:  50px; height: 50px;" >
+    <div class="dropdown">
+      <button class="dropbtn">Welcome, {{authService.decodedToken?.unique_name}}</button>
+      <div class="dropdown-content">
+        <a href="#" [routerLink]="['/edit']">Edit Profile</a>
+        <a href="#" (click)="logout()">Log Out</a>
+      </div>
+    </div>
+    <div class="dropdown1">
+      <button class="dropbtn1">My Organization</button>
+      <div class="dropdown-content1">
+        <a href="#" [routerLink]="['/create-organization']">Create organization</a>
+        <a href="#" [routerLink]="['/organization/edit']">Edit organization</a>
+      </div>
+    </div>
 </div>
+<br><br>
 
-<app-member-list></app-member-list>
+
+
+
+
+
+<button (click)="toggleMainMenu('Vacancy')">Vacancy</button>
+<button (click)="toggleMainMenu('Specialist')">Specialist</button>
+<button (click)="toggleMainMenu('Organization')">Organization</button>
+
+<app-vacancy-list  *ngIf="checked === 'Vacancy'"></app-vacancy-list>
+<app-member-list *ngIf="checked === 'Specialist'"></app-member-list>
+<app-organization-list  *ngIf="checked === 'Organization'"></app-organization-list>
+

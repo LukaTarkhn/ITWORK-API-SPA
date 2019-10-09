@@ -9,6 +9,7 @@ namespace ITWORK.API.Helpers
     {
         public AutoMapperProfiles()
         {
+            // users
             CreateMap<User, UserForListDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
@@ -17,11 +18,18 @@ namespace ITWORK.API.Helpers
                 .ForMember(dest => dest.PhotoUrl, opt => {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
             });
-            CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<UserForRegisterDto, User>();
             CreateMap<UserForUpdateDto, User>();
+            // photos
+            CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
-            CreateMap<UserForRegisterDto, User>();
+            // organization
+            CreateMap<Organization, OrganizationForListDto>();
+            CreateMap<Organization, OrganizationForDetailedDto>();
+            CreateMap<Organization, OrganizationForReturnDto>();
+            CreateMap<OrganizationForCreationDto, Organization>();
+            CreateMap<OrganizationForUpdateDto, Organization>();
         }
     }
 }

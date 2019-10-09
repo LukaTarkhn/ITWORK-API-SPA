@@ -1,0 +1,9 @@
+
+<form #editForm="ngForm" id="editForm" (ngSubmit)="updateOrganization()" >
+  <h4>Organization name</h4>
+  <textarea name="name" rows="4" [(ngModel)]="organization.name"></textarea>
+  <h4>Description</h4>
+  <textarea name="description" rows="4" [(ngModel)]="organization.description"></textarea>
+</form>
+
+<button [disabled]="!editForm.dirty" form="editForm">Save</button>

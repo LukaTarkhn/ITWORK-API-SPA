@@ -1,4 +1,5 @@
 import { Photo } from './photo';
+import { Organization } from './organization';
 
 export interface User {
     id: number;
@@ -7,4 +8,5 @@ export interface User {
     lastAction: Date;
     created: Date;
     photos?: Photo[];
+    organizations?: Organization[];
 }

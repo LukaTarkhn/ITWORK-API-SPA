@@ -29,6 +29,36 @@ namespace ITWORK.API.Data
             return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
         }
 
+        public async Task<Organization> GetOrganization(int id)
+        {
+            var organization = await _context.Organizations.FirstOrDefaultAsync(p => p.UserId == id);
+
+            return organization;
+        }
+
+        public async Task<IEnumerable<Organization>> GetOrganizations()
+        {
+            var organizations = await _context.Organizations.ToListAsync();
+            
+            return organizations;
+        }
+
+        public async Task<bool> OrgExists(int userid)
+        {
+            if (await _context.Organizations.AnyAsync(x => x.UserId == userid))
+                return true;
+
+            return false;
+        }
+
+        public async Task<Organization> CreateOrganization(Organization organization)
+        {
+            await _context.Organizations.AddAsync(organization);
+            await _context.SaveChangesAsync();
+
+            return organization;
+        }
+
         public async Task<Photo> GetPhoto(int id)
         {
             var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
@@ -38,7 +68,7 @@ namespace ITWORK.API.Data
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Include(p => p.Photos).Include(p => p.Organizations).FirstOrDefaultAsync(u => u.Id == id);
             
             return user;
         }
@@ -50,7 +80,7 @@ namespace ITWORK.API.Data
             return users;
         }
 
-        public async Task<bool> saveAll()
+        public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
         }

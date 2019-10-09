@@ -84,7 +84,7 @@ namespace ITWORK.API.Controllers
             
             userFromRepo.Photos.Add(photo);
 
-            if (await _repo.saveAll())
+            if (await _repo.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
                 return CreatedAtRoute("GetPhoto", new { id = photo.Id}, photoToReturn);
@@ -114,7 +114,7 @@ namespace ITWORK.API.Controllers
 
             photoFromRepo.IsMain = true;
 
-            if (await _repo.saveAll())
+            if (await _repo.SaveAll())
                 return NoContent();
             
             return BadRequest("Can't set this photo to main");
@@ -152,7 +152,7 @@ namespace ITWORK.API.Controllers
                 _repo.Delete(photoFromRepo);
             }
 
-            if (await _repo.saveAll())
+            if (await _repo.SaveAll())
                 return Ok();
 
             return BadRequest("Failed to delete the photo");

@@ -13,6 +13,9 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './main-authorized/members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
+import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
+import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
+import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 
 const routes: Routes = [
   {
@@ -37,7 +40,11 @@ const routes: Routes = [
         resolve: {user: MemberDetailResolver}},
       { path: 'edit', component: MemberEditComponent,
         resolve: {user: MemberEditResolver},
-        canDeactivate: [PreventUnsavedChanged]}
+        canDeactivate: [PreventUnsavedChanged]},
+      { path: 'create-organization', component: OrganizationCreateComponent},
+      { path: 'organization/edit', component: OrganizationEditComponent,
+        resolve: {organization: OrganizationEditResolver},
+        canDeactivate: [PreventUnsavedChanged]},
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

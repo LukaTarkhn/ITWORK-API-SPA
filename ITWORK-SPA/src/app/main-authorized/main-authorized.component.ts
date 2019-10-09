@@ -10,7 +10,7 @@ import { AuthService } from '../_services/auth.service';
 })
 export class MainAuthorizedComponent implements OnInit {
   photoUrl: string;
-
+  checked = 'Vacancy';
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
@@ -26,4 +26,9 @@ export class MainAuthorizedComponent implements OnInit {
     this.alertify.message('logged out');
     this.router.navigate(['/']);
   }
+
+  toggleMainMenu(checked: string) {
+    this.checked = checked;
+  }
+
 }

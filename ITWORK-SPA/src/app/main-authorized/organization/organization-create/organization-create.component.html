@@ -1,0 +1,7 @@
+<form [formGroup]="createForm" (ngSubmit)="CreateOrganization()">
+    <input type="text" placeholder="name" formControlName="name"/>
+    <input type="text" placeholder="description" formControlName="description"/>
+    <button type="submit" [disabled]="!createForm.valid">Create</button>
+</form>
+<p style="color: red" *ngIf="createForm.get('name').errors && createForm.get('name').touched">Please choose a organization name</p> <br>
+<p style="color: red" *ngIf="createForm.get('description').errors && createForm.get('description').touched">Please choose a organization description</p> <br>
