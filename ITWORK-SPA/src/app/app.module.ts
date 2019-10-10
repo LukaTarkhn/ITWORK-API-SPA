@@ -25,6 +25,9 @@ import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vac
 import { OrganizationListComponent } from './main-authorized/organization/organization-list/organization-list.component';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
 import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
+import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
+import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
+import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
 
 // services
 import { AuthService } from './_services/auth.service';
@@ -36,7 +39,6 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthorizedGuard } from './_guards/authorized.guard';
 import { UserService } from './_services/user.service';
 import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
-import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -58,7 +60,8 @@ export function tokenGetter() {
       VacancyListComponent,
       OrganizationListComponent,
       OrganizationCreateComponent,
-      OrganizationEditComponent
+      OrganizationEditComponent,
+      OrganizationDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -86,6 +89,7 @@ export function tokenGetter() {
       MemberListResolver,
       MemberEditResolver,
       OrganizationEditResolver,
+      OrganizationDetailResolver,
       PreventUnsavedChanged
    ],
    bootstrap: [

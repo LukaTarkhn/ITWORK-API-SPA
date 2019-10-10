@@ -40,11 +40,9 @@ namespace ITWORK.API.Controllers
         [HttpGet("{id}", Name = "GetOrganization")]
         public async Task<IActionResult> GetOrganization(int id)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                            return Unauthorized();
             var orgFromRepo = await _repo.GetOrganization(id);
 
-            var organization = _mapper.Map<OrganizationForReturnDto>(orgFromRepo);
+            var organization = _mapper.Map<OrganizationForDetailedDto>(orgFromRepo);
         
             return Ok(organization);
         }

@@ -31,7 +31,7 @@ export class OrganizationEditComponent implements OnInit {
 
   updateOrganization() {
     this.userService.updateOrganization(this.authService.decodedToken.nameid, this.organization)
-    .subscribe(next => {
+    .subscribe( () => {
       this.alertify.success('Updated!');
       this.editForm.reset(this.organization);
     }, error => {

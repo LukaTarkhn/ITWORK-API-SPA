@@ -16,6 +16,8 @@ import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
 import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
 import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
+import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
+import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
 
 const routes: Routes = [
   {
@@ -45,6 +47,8 @@ const routes: Routes = [
       { path: 'organization/edit', component: OrganizationEditComponent,
         resolve: {organization: OrganizationEditResolver},
         canDeactivate: [PreventUnsavedChanged]},
+      { path: 'organization/:id', component: OrganizationDetailComponent,
+        resolve: {organization: OrganizationDetailResolver}},
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

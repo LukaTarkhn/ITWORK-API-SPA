@@ -3,7 +3,7 @@ import { Organization } from 'src/app/_models/organization';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-organization-create',
@@ -20,7 +20,8 @@ export class OrganizationCreateComponent implements OnInit {
       $event.returnValue = true;
     }
   }
-  constructor(private router: Router, private userService: UserService, private alertify: AlertifyService, private fb: FormBuilder) { }
+  constructor(private router: Router, private route: ActivatedRoute,
+              private userService: UserService, private alertify: AlertifyService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.createOrganizationForm();
