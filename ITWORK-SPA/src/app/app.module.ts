@@ -28,6 +28,7 @@ import { OrganizationEditComponent } from './main-authorized/organization/organi
 import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
 import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
+import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
 
 // services
 import { AuthService } from './_services/auth.service';
@@ -90,6 +91,7 @@ export function tokenGetter() {
       MemberEditResolver,
       OrganizationEditResolver,
       OrganizationDetailResolver,
+      OrganizationListResolver,
       PreventUnsavedChanged
    ],
    bootstrap: [

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/_services/user.service';
-import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Organization } from 'src/app/_models/organization';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-organization-list',
@@ -11,17 +10,11 @@ import { Organization } from 'src/app/_models/organization';
 export class OrganizationListComponent implements OnInit {
   organizations: Organization[];
 
-  constructor(private userService: UserService, private alertify: AlertifyService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadOrganizations();
-  }
-
-  loadOrganizations() {
-    this.userService.getOrganizations().subscribe((organizations: Organization[]) => {
-      this.organizations = organizations;
-    }, error => {
-      this.alertify.error(error);
+    this.route.data.subscribe(data => {
+      this.organizations = data.organizations;
     });
   }
 

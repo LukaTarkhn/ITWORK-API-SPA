@@ -18,6 +18,7 @@ import { OrganizationEditComponent } from './main-authorized/organization/organi
 import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
 import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
+import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
 
 const routes: Routes = [
   {
@@ -37,7 +38,9 @@ const routes: Routes = [
     children: [
       // links that can't be viewed without authentication
       { path: 'in', component: MainAuthorizedComponent,
-        resolve: {users: MemberListResolver}},
+        resolve: {
+          users: MemberListResolver,
+          organizations: OrganizationListResolver}},
       { path: 'in/:id', component: MemberDetailComponent,
         resolve: {user: MemberDetailResolver}},
       { path: 'edit', component: MemberEditComponent,
