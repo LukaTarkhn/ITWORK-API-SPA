@@ -11,5 +11,8 @@
 <p>
  member since: {{user.created | date: 'short'}}
 </p>
-<button>Follow</button>
+<button (click)="sendFollow(user.id)">Follow</button>
+<button (click)="sendUnfollow(user.id)">Unfollow</button>
 <button>Message</button>
+<br>
+<button [routerLink]="['/follow-list']" *ngIf="isCurrentUser()">Follow List</button>

@@ -3,10 +3,11 @@
     <div class="dropdown">
       <button class="dropbtn">Welcome, {{authService.decodedToken?.unique_name}}</button>
       <div class="dropdown-content">
+        <a href="#" [routerLink]="['/in/', userId]">My Profile</a>
         <a href="#" [routerLink]="['/edit']">Edit Profile</a>
         <a href="#" (click)="logout()">Log Out</a>
       </div>
-    </div>
+    </div> 
     <div class="dropdown1">
       <button class="dropbtn1">My Organization</button>
       <div class="dropdown-content1">

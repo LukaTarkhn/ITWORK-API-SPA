@@ -1,4 +1,6 @@
-<h3>USERS LIST</h3>
+<h3>{{followersParam === 'Followers' ? 'My Followers' : 'I Follow'}} : {{pagination.totalItems}}</h3>
+<input type="radio" name="type" [(ngModel)]="followersParam" (click)="loadUsers()" value="Followers"> Followers<br>
+<input type="radio" name="type" [(ngModel)]="followersParam" (click)="loadUsers()" value="Followees"> Following<br>
 <div *ngFor="let user of users">
   <app-member-card [user]="user"></app-member-card>
 </div>

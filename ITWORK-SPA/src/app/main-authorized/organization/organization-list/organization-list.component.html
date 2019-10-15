@@ -2,7 +2,9 @@
 <div *ngFor="let organization of organizations">
   <h5>{{organization.name}}</h5>
   <p>{{organization.description}}</p>
-  <hr>
+  <p> org: {{organization.id}}</p>
+  <p> user: {{organization.userId}}</p>
   <button [routerLink]="['/organization/', organization.userId]">watch</button>
+  <hr>
 </div>
 

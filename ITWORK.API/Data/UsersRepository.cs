@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ITWORK.API.Helpers;
 using ITWORK.API.Modules;
 using Microsoft.EntityFrameworkCore;
 
@@ -68,21 +69,60 @@ namespace ITWORK.API.Data
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.Include(p => p.Photos).Include(p => p.Organizations).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
             
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = await _context.Users.Include(p => p.Photos).ToListAsync();
+            var users =  _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastAction).AsQueryable();
 
-            return users;
+            users = users.Where(u => u.Id != userParams.UserId);
+
+
+
+            if (userParams.Followers)
+            {
+                var userFollowers = await GetUserFollows(userParams.UserId, userParams.Followers);
+                users = users.Where(u => userFollowers.Contains(u.Id));
+            }
+
+            if (userParams.Followees)
+            {
+                var userFollowees = await GetUserFollows(userParams.UserId, userParams.Followers);
+                users = users.Where(u => userFollowees.Contains(u.Id));
+            }
+
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        private async Task<IEnumerable<int>> GetUserFollows(int id, bool Followers)
+        {
+            var user = await _context.Users
+                .Include(x => x.Followers)
+                .Include(x => x.Followees)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (Followers)
+            {
+                return user.Followers.Where(u => u.FolloweeId == id).Select(i => i.FollowerId);
+            }
+            else
+            {
+                return user.Followees.Where(u => u.FollowerId == id).Select(i => i.FolloweeId);
+            }
+        }
+
+        public async Task<Follow> GetFollow(int userId, int recipientId)
+        {
+            return await _context.Followers.FirstOrDefaultAsync(u => 
+                u.FollowerId == userId && u.FolloweeId == recipientId);
         }
     }
 }

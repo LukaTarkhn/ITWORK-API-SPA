@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 // components
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,8 @@ import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './main-authorized/members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { MemberFollowersComponent } from './main-authorized/members/member-followers/member-followers.component';
+import { MemberFollowersResolver } from './_resolvers/member-followers.resolver';
 import { MemberPhotoEditorComponent } from './main-authorized/members/member-edit/member-photo-editor/member-photo-editor.component';
 import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vacancy-list.component';
 import { OrganizationListComponent } from './main-authorized/organization/organization-list/organization-list.component';
@@ -56,13 +59,14 @@ export function tokenGetter() {
       MemberListComponent,
       MemberDetailComponent,
       MemberEditComponent,
+      MemberFollowersComponent,
       MemberPhotoEditorComponent,
-      TimeAgoPipe,
-      VacancyListComponent,
       OrganizationListComponent,
       OrganizationCreateComponent,
       OrganizationEditComponent,
-      OrganizationDetailComponent
+      OrganizationDetailComponent,
+      VacancyListComponent,
+      TimeAgoPipe
    ],
    imports: [
       BrowserModule,
@@ -71,6 +75,7 @@ export function tokenGetter() {
       FormsModule,
       ReactiveFormsModule,
       FileUploadModule,
+      PaginationModule.forRoot(),
       JwtModule.forRoot({
          config: {
             tokenGetter,
@@ -89,6 +94,7 @@ export function tokenGetter() {
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
+      MemberFollowersResolver,
       OrganizationEditResolver,
       OrganizationDetailResolver,
       OrganizationListResolver,

@@ -10,11 +10,13 @@ import { AuthService } from '../_services/auth.service';
 })
 export class MainAuthorizedComponent implements OnInit {
   photoUrl: string;
+  userId: number;
   checked = 'Vacancy';
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+    this.userId = this.authService.decodedToken.nameid;
   }
 
 

@@ -14,6 +14,7 @@ import { UserService } from 'src/app/_services/user.service';
 export class OrganizationEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   organization: Organization;
+  organizations: Organization[];
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
@@ -38,5 +39,4 @@ export class OrganizationEditComponent implements OnInit {
       this.alertify.error(error);
     });
 }
-
 }

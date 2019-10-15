@@ -17,5 +17,4 @@ export class OrganizationListComponent implements OnInit {
       this.organizations = data.organizations;
     });
   }
-
 }
