@@ -24,6 +24,13 @@ namespace ITWORK.API.Helpers
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            // messages
+            CreateMap<MessageForCreationDto, Message>().ReverseMap();
+            CreateMap<Message, MessageForReturnDto>()
+                .ForMember(m => m.SenderPhotoUrl, opt => opt.MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(m => m.RecipientPhotoUrl, opt => opt.MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(m => m.senderKnownAs, opt => opt.MapFrom(u => u.Sender.Username))
+                .ForMember(m => m.recipientKnownAs, opt => opt.MapFrom(u => u.Recipient.Username));
             // organization
             CreateMap<Organization, OrganizationForListDto>();
             CreateMap<Organization, OrganizationForDetailedDto>();

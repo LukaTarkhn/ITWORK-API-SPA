@@ -16,5 +16,7 @@ namespace ITWORK.API.Modules
         public ICollection<Organization> Organizations { get; set; }
         public ICollection<Follow> Followers { get; set; }
         public ICollection<Follow> Followees { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesRecieved { get; set; }
     }
 }

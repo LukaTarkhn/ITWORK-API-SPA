@@ -11,8 +11,12 @@
 <p>
  member since: {{user.created | date: 'short'}}
 </p>
-<button (click)="sendFollow(user.id)">Follow</button>
-<button (click)="sendUnfollow(user.id)">Unfollow</button>
-<button>Message</button>
+<button (click)="sendFollow(user.id)" *ngIf="!isCurrentUser()">Follow</button>
+<button (click)="sendUnfollow(user.id)" *ngIf="!isCurrentUser()">Unfollow</button>
+<button [routerLink]="['/edit']" *ngIf="isCurrentUser()">Edit Profile</button>
+<button [routerLink]="['/conversations']" *ngIf="isCurrentUser()">Conversations</button>
+<button  *ngIf="!isCurrentUser()">Message</button>
 <br>
 <button [routerLink]="['/follow-list']" *ngIf="isCurrentUser()">Follow List</button>
+
+<app-member-messages [recipientId]="user.id"></app-member-messages>

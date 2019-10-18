@@ -14,6 +14,8 @@ import { MemberEditComponent } from './main-authorized/members/member-edit/membe
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberFollowersComponent } from './main-authorized/members/member-followers/member-followers.component';
 import { MemberFollowersResolver } from './_resolvers/member-followers.resolver';
+import { MessagesListComponent } from './main-authorized/members/messages-list/messages-list.component';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
 import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
@@ -51,6 +53,8 @@ const routes: Routes = [
         canDeactivate: [PreventUnsavedChanged]},
       { path: 'follow-list', component: MemberFollowersComponent,
         resolve: {users: MemberFollowersResolver}},
+      { path: 'conversations', component: MessagesListComponent,
+      resolve: {messages: MessagesResolver}},
       { path: 'create-organization', component: OrganizationCreateComponent},
       { path: 'organization/edit', component: OrganizationEditComponent,
         resolve: {organization: OrganizationEditResolver},

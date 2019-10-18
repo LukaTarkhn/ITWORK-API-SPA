@@ -81,6 +81,9 @@ namespace ITWORK.API.Controllers
             if (follow != null)
                 return BadRequest("You already follow this user");
             
+            if (await _repo.GetUser(recipientId) == await _repo.GetUser(id))
+                return BadRequest("You can not follow yourself");
+            
             if (await _repo.GetUser(recipientId) == null)
                 return NotFound();
             

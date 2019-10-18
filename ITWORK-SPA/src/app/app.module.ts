@@ -23,7 +23,10 @@ import { MemberEditComponent } from './main-authorized/members/member-edit/membe
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberFollowersComponent } from './main-authorized/members/member-followers/member-followers.component';
 import { MemberFollowersResolver } from './_resolvers/member-followers.resolver';
+import { MemberMessagesComponent } from './main-authorized/members/member-messages/member-messages.component';
 import { MemberPhotoEditorComponent } from './main-authorized/members/member-edit/member-photo-editor/member-photo-editor.component';
+import { MessagesListComponent } from './main-authorized/members/messages-list/messages-list.component';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vacancy-list.component';
 import { OrganizationListComponent } from './main-authorized/organization/organization-list/organization-list.component';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
@@ -61,6 +64,8 @@ export function tokenGetter() {
       MemberEditComponent,
       MemberFollowersComponent,
       MemberPhotoEditorComponent,
+      MemberMessagesComponent,
+      MessagesListComponent,
       OrganizationListComponent,
       OrganizationCreateComponent,
       OrganizationEditComponent,
@@ -98,6 +103,7 @@ export function tokenGetter() {
       OrganizationEditResolver,
       OrganizationDetailResolver,
       OrganizationListResolver,
+      MessagesResolver,
       PreventUnsavedChanged
    ],
    bootstrap: [

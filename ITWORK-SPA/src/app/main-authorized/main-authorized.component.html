@@ -4,7 +4,7 @@
       <button class="dropbtn">Welcome, {{authService.decodedToken?.unique_name}}</button>
       <div class="dropdown-content">
         <a href="#" [routerLink]="['/in/', userId]">My Profile</a>
-        <a href="#" [routerLink]="['/edit']">Edit Profile</a>
+        <a href="#" [routerLink]="['/conversations']">Conversations</a>
         <a href="#" (click)="logout()">Log Out</a>
       </div>
     </div> 
