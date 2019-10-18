@@ -3,7 +3,7 @@
   <!-- to them -->
   <li *ngFor="let message of messages">
       <div *ngIf="message.senderId == recipientId">
-          <img style="width: 40px;" src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}">
+          <img style="width: 40px;" src="{{message.senderPhotoUrl || '../../../../../../assets/user.png'}}" alt="{{message.senderKnownAs}}">
           <div>
             <strong>{{message.senderKnownAs}}</strong>
             <span>{{message.messageSent  | timeAgo}}</span>
@@ -13,7 +13,7 @@
   
   <!-- to me -->
       <div *ngIf="message.senderId != recipientId">
-          <img style="width: 40px;" src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}">
+          <img style="width: 40px;" src="{{message.senderPhotoUrl || '../../../../../../assets/user.png'}}" alt="{{message.senderKnownAs}}">
           <div>
             <strong>{{message.senderKnownAs}}</strong>
             <span>{{message.messageSent  | timeAgo}}</span>
