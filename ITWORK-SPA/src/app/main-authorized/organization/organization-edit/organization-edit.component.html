@@ -9,3 +9,5 @@
 
 
 <button [disabled]="!editForm.dirty" form="editForm">Save</button>
+
+<button (click)="deleteOrganization(this.organization.id)">Delete this organization</button>

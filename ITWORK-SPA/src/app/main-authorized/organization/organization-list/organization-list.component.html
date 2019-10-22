@@ -4,7 +4,7 @@
   <p>{{organization.description}}</p>
   <p> org: {{organization.id}}</p>
   <p> user: {{organization.userId}}</p>
-  <button [routerLink]="['/organization/', organization.userId]">watch</button>
+  <button [routerLink]="['/organization/',organization.userId, organization.id, organization.name]">watch</button>
   <hr>
 </div>
 

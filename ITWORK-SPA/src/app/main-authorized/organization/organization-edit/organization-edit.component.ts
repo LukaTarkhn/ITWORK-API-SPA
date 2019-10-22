@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Organization } from 'src/app/_models/organization';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { NgForm } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -22,7 +22,7 @@ export class OrganizationEditComponent implements OnInit {
     }
   }
   constructor(private route: ActivatedRoute, private authService: AuthService,
-              private alertify: AlertifyService, private userService: UserService) { }
+              private alertify: AlertifyService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -31,12 +31,23 @@ export class OrganizationEditComponent implements OnInit {
   }
 
   updateOrganization() {
-    this.userService.updateOrganization(this.authService.decodedToken.nameid, this.organization)
+    this.userService.updateOrganization(this.authService.decodedToken.nameid, this.organization.id, this.organization)
     .subscribe( () => {
       this.alertify.success('Updated!');
       this.editForm.reset(this.organization);
     }, error => {
       this.alertify.error(error);
     });
-}
+  }
+
+  deleteOrganization(id: number) {
+  this.alertify.confirm('Are you sure?', () => {
+    this.userService.deleteOrganization(this.authService.decodedToken.nameid, id).subscribe(data => {
+      this.alertify.warning('You delete organization: ' + this.organization.name);
+      this.router.navigate(['/in']);
+    }, error => {
+      this.alertify.error(error);
+    });
+  });
+  }
 }

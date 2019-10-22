@@ -24,12 +24,12 @@ export class MemberMessagesComponent implements OnInit {
 
   loadMessageThread() {
     const currentUserId = +this.authService.decodedToken.nameid;
-    this.userService.getMessageThread(this.authService.decodedToken.nameid, this.recipientId)
+    this.userService.getMessageThread(currentUserId, this.recipientId)
       .pipe(
         tap(messages => {
-          for (let i = 0; i < messages.length; i++) {
-            if (messages[i].isRead === false && messages[i].recipientId === currentUserId) {
-              this.userService.MarkAsRead(currentUserId, messages[i].id);
+          for (const index of messages) {
+            if (index.isRead === false && index.recipientId === currentUserId) {
+              this.userService.MarkAsRead(currentUserId, index.id);
             }
           }
         })

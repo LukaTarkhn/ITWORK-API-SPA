@@ -12,7 +12,7 @@ export class OrganizationDetailResolver implements Resolve<Organization> {
     constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Organization> {
-        return this.userService.getOrganization(route.params.id).pipe(
+        return this.userService.getOrganization(route.params.userId, route.params.id, route.params.name).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving data');
                 this.router.navigate(['/in']);

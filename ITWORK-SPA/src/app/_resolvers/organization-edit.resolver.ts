@@ -14,7 +14,7 @@ export class OrganizationEditResolver implements Resolve<Organization> {
                 private authService: AuthService, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Organization> {
-        return this.userService.getOrganization(this.authService.decodedToken.nameid).pipe(
+        return this.userService.getOrganization(this.authService.decodedToken.nameid, route.params.id, route.params.name).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving your data');
                 this.router.navigate(['/in']);

@@ -15,8 +15,8 @@ namespace ITWORK.API.Data
          Task<Photo> GetPhoto(int id);
          Task<Photo> GetMainPhotoForUser(int userId);
          Task<Organization> CreateOrganization(Organization organization);
-         Task<bool> OrgExists(int userid);
-         Task<Organization> GetOrganization(int id);
+         Task<bool> OrgExists(string name);
+         Task<Organization> GetOrganization(int userId, int id);
          Task<IEnumerable<Organization>> GetOrganizations();
          Task<Follow> GetFollow(int userId, int recipientId);
          Task<Message> GetMessage(int id);

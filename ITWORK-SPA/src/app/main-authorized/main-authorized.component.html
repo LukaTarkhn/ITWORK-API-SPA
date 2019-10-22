@@ -3,7 +3,7 @@
     <div class="dropdown">
       <button class="dropbtn">Welcome, {{authService.decodedToken?.unique_name}}</button>
       <div class="dropdown-content">
-        <a href="#" [routerLink]="['/in/', userId]">My Profile</a>
+        <a href="#" [routerLink]="['/in/', userId, username]">My Profile</a>
         <a href="#" [routerLink]="['/conversations']">Conversations</a>
         <a href="#" (click)="logout()">Log Out</a>
       </div>
@@ -12,7 +12,9 @@
       <button class="dropbtn1">My Organization</button>
       <div class="dropdown-content1">
         <a href="#" [routerLink]="['/create-organization']">Create organization</a>
-        <a href="#" [routerLink]="['/organization/edit']">Edit organization</a>
+        <p *ngFor="let organization of organizations">
+          <a *ngIf="this.userId == organization.userId" href="#" [routerLink]="['/organization/',organization.userId, organization.id, organization.name]">{{organization.name}}({{organization.userId}}, {{organization.id}}) </a> 
+        </p>
       </div>
     </div>
 </div>

@@ -30,9 +30,9 @@ namespace ITWORK.API.Data
             return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
         }
 
-        public async Task<Organization> GetOrganization(int id)
+        public async Task<Organization> GetOrganization(int userId, int id)
         {
-            var organization = await _context.Organizations.FirstOrDefaultAsync(p => p.UserId == id);
+            var organization = await _context.Organizations.FirstOrDefaultAsync(p => p.UserId == userId && p.Id == id);
 
             return organization;
         }
@@ -44,9 +44,9 @@ namespace ITWORK.API.Data
             return organizations;
         }
 
-        public async Task<bool> OrgExists(int userid)
+        public async Task<bool> OrgExists(string name)
         {
-            if (await _context.Organizations.AnyAsync(x => x.UserId == userid))
+            if (await _context.Organizations.AnyAsync(x => x.Name == name))
                 return true;
 
             return false;
@@ -69,7 +69,7 @@ namespace ITWORK.API.Data
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Include(p => p.Photos).Include(o => o.Organizations).FirstOrDefaultAsync(u => u.Id == id);
             
             return user;
         }

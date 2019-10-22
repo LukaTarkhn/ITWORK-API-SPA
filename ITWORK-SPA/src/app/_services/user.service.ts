@@ -6,7 +6,6 @@ import { User } from '../_models/user';
 import { Organization } from '../_models/organization';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
-import { Response } from 'selenium-webdriver/http';
 import { Message } from '../_models/message';
 
 
@@ -48,7 +47,7 @@ export class UserService {
       );
   }
 
-  getUser(id: number): Observable<User> {
+  getUser(id: number, username: string): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
 
@@ -72,12 +71,16 @@ export class UserService {
     return this.http.get<Organization[]>(this.baseUrl + 'users/organizations');
   }
 
-  getOrganization(id: number): Observable<Organization> {
-    return this.http.get<Organization>(this.baseUrl + 'users/organizations/' + id);
+  getOrganization(userId: number, id: number, name: string): Observable<Organization> {
+    return this.http.get<Organization>(this.baseUrl + 'users/organizations/' + userId + '/' + id);
   }
 
-  updateOrganization(id: number, organization: Organization) {
-    return this.http.put(this.baseUrl + 'users/organizations/' + id, organization);
+  updateOrganization(userId: number, id: number, organization: Organization) {
+    return this.http.put(this.baseUrl + 'users/organizations/' + userId + '/' + id, organization);
+  }
+
+  deleteOrganization(userId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'users/organizations/' + userId + '/' + id);
   }
 
   sendFollow(id: number, recipientId: number) {

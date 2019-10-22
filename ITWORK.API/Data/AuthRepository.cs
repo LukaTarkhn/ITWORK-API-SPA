@@ -14,7 +14,7 @@ namespace ITWORK.API.Data
         }
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Username == username || x.Email == username);
             if (user == null)
                 return null;
 

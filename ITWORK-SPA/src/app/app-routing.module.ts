@@ -46,7 +46,7 @@ const routes: Routes = [
         resolve: {
           users: MemberListResolver,
           organizations: OrganizationListResolver}},
-      { path: 'in/:id', component: MemberDetailComponent,
+      { path: 'in/:id/:username', component: MemberDetailComponent,
         resolve: {user: MemberDetailResolver}},
       { path: 'edit', component: MemberEditComponent,
         resolve: {user: MemberEditResolver},
@@ -56,10 +56,10 @@ const routes: Routes = [
       { path: 'conversations', component: MessagesListComponent,
       resolve: {messages: MessagesResolver}},
       { path: 'create-organization', component: OrganizationCreateComponent},
-      { path: 'organization/edit', component: OrganizationEditComponent,
+      { path: 'organization/edit/:userId/:id/:name', component: OrganizationEditComponent,
         resolve: {organization: OrganizationEditResolver},
         canDeactivate: [PreventUnsavedChanged]},
-      { path: 'organization/:id', component: OrganizationDetailComponent,
+      { path: 'organization/:userId/:id/:name', component: OrganizationDetailComponent,
         resolve: {organization: OrganizationDetailResolver}},
     ]
   },

@@ -8,4 +8,4 @@
  member since: {{organization.dateCreated | date: 'short'}}
 </p>
 <button>Follow</button>
-
+<button *ngIf="isCurrentUser()" [routerLink]="['/organization/edit',organization.userId, organization.id, organization.name]">Edit</button>

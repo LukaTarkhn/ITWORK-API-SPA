@@ -37,32 +37,31 @@ namespace ITWORK.API.Controllers
         }
 
         
-        [HttpGet("{id}", Name = "GetOrganization")]
-        public async Task<IActionResult> GetOrganization(int id)
+        [HttpGet("{userId}/{id}", Name = "GetOrganization")]
+        public async Task<IActionResult> GetOrganization(int userId, int id)
         {
-            var orgFromRepo = await _repo.GetOrganization(id);
+            var orgFromRepo = await _repo.GetOrganization(userId, id);
 
-            var organization = _mapper.Map<OrganizationForDetailedDto>(orgFromRepo);
+            var organization = _mapper.Map<OrganizationForReturnDto>(orgFromRepo);
         
             return Ok(organization);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrganization(int id, OrganizationForUpdateDto organizationForUpdateDto)
+        [HttpPut("{userId}/{id}")]
+        public async Task<IActionResult> UpdateOrganization(int userId, int id, OrganizationForUpdateDto organizationForUpdateDto)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                             return Unauthorized();
 
-            var organizationFromRepo = await _repo.GetOrganization(id);
+            var organizationFromRepo = await _repo.GetOrganization(userId, id);
 
             _mapper.Map(organizationForUpdateDto, organizationFromRepo);
 
             if (await _repo.SaveAll())
-                return NoContent();
+                return Ok();
             
             throw new Exception("Organization update failed on save");
         }
-
 
         [HttpPost]
         public async Task<IActionResult> AddOrganizationForUser(OrganizationForCreationDto organizationForCreationDto)
@@ -71,19 +70,41 @@ namespace ITWORK.API.Controllers
 
             organizationForCreationDto.UserId = userFromRepo;
             
-            if (organizationForCreationDto.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (userFromRepo != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            if (await _repo.OrgExists(organizationForCreationDto.UserId))
-                return BadRequest("Organization already exist");
-
             var organizationToCreate = _mapper.Map<Organization>(organizationForCreationDto);
+
+            if (await _repo.OrgExists(organizationToCreate.Name))
+                return BadRequest("Organization with this name already exist");
 
             var createdOrganization = await _repo.CreateOrganization(organizationToCreate);
 
             var organizationToReturn = _mapper.Map<OrganizationForReturnDto>(createdOrganization);
 
-            return CreatedAtRoute("GetOrganization", new {controller = "Organizations", id = createdOrganization.Id}, organizationToReturn);
+            return CreatedAtRoute(new {controller = "Organizations", id = createdOrganization.Id}, organizationToReturn);
+        }
+
+        [HttpDelete("{userId}/{id}")]
+        public async Task<IActionResult> DeleteOrganization(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var organization = await _repo.GetOrganization(userId, id);
+
+            if (organization == null)
+                return BadRequest("This organization is not exist");
+            
+            if (await _repo.GetUser(userId) == null)
+                return NotFound();
+    
+            _repo.Delete(organization);
+
+            if (await _repo.SaveAll())
+                return Ok();
+            
+            return BadRequest("Failed to delete organization");
         }
     }
 }

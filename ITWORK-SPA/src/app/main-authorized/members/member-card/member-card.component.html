@@ -1,7 +1,7 @@
 <h3>{{user.username}}</h3>
 <div>
   <img style="width: 70px; height: 70px" src="{{user.photoUrl || '../../../../../../assets/user.png'}}" alt="{{user.username}}">
-  <button [routerLink]="['/in/', user.id]">User</button>
+  <button [routerLink]="['/in/',user.id, user.username]">User</button>
   <button (click)="sendFollow(user.id)">Follow</button>
   <button (click)="sendUnfollow(user.id)">Unfollow</button>
   <button>Message</button>
