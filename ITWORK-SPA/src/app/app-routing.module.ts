@@ -23,6 +23,7 @@ import { OrganizationEditResolver } from './_resolvers/organization-edit.resolve
 import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
 import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
 import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
+import { FollowResolver } from './_resolvers/follower.resolver';
 
 
 const routes: Routes = [
@@ -47,14 +48,16 @@ const routes: Routes = [
           users: MemberListResolver,
           organizations: OrganizationListResolver}},
       { path: 'in/:id/:username', component: MemberDetailComponent,
-        resolve: {user: MemberDetailResolver}},
+        resolve: {
+          user: MemberDetailResolver,
+          follow: FollowResolver}},
       { path: 'edit', component: MemberEditComponent,
         resolve: {user: MemberEditResolver},
         canDeactivate: [PreventUnsavedChanged]},
       { path: 'follow-list', component: MemberFollowersComponent,
         resolve: {users: MemberFollowersResolver}},
       { path: 'conversations', component: MessagesListComponent,
-      resolve: {messages: MessagesResolver}},
+        resolve: {messages: MessagesResolver}},
       { path: 'create-organization', component: OrganizationCreateComponent},
       { path: 'organization/edit/:userId/:id/:name', component: OrganizationEditComponent,
         resolve: {organization: OrganizationEditResolver},

@@ -27,6 +27,7 @@ import { MemberMessagesComponent } from './main-authorized/members/member-messag
 import { MemberPhotoEditorComponent } from './main-authorized/members/member-edit/member-photo-editor/member-photo-editor.component';
 import { MessagesListComponent } from './main-authorized/members/messages-list/messages-list.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
+import { FollowResolver } from './_resolvers/follower.resolver';
 import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vacancy-list.component';
 import { OrganizationListComponent } from './main-authorized/organization/organization-list/organization-list.component';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
@@ -104,6 +105,7 @@ export function tokenGetter() {
       OrganizationDetailResolver,
       OrganizationListResolver,
       MessagesResolver,
+      FollowResolver,
       PreventUnsavedChanged
    ],
    bootstrap: [

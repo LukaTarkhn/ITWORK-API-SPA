@@ -91,6 +91,10 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'users/' + id + '/unfollow/' + recipientId);
   }
 
+  getFollow(id: number, recipientId: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/' + id + '/follows/' + recipientId);
+  }
+
   getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
     const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
 

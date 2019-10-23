@@ -70,6 +70,19 @@ namespace ITWORK.API.Controllers
             throw new Exception($"Update user {id} failed on save");
         }
 
+        [HttpGet("{id}/follows/{recipientId}")]
+        public async Task<IActionResult> GetFollow(int id, int recipientId)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var follow = await _repo.GetFollow(id,recipientId);
+
+            var followToReturn = _mapper.Map<FollowForReturnDto>(follow);
+
+            return Ok(followToReturn);
+        }
+
         [HttpPost("{id}/follow/{recipientId}")]
         public async Task<IActionResult> FollowUser(int id, int recipientId)
         {

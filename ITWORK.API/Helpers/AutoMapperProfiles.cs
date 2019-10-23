@@ -20,6 +20,7 @@ namespace ITWORK.API.Helpers
             });
             CreateMap<UserForRegisterDto, User>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<Follow, FollowForReturnDto>();
             // photos
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();

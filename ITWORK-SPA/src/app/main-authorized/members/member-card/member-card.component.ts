@@ -17,19 +17,4 @@ export class MemberCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  sendFollow(id: number) {
-    this.userService.sendFollow(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.alertify.success('You have followed: ' + this.user.username);
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
-
-  sendUnfollow(id: number) {
-    this.userService.sendUnfollow(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.alertify.warning('You have unfollowed: ' + this.user.username);
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
 }

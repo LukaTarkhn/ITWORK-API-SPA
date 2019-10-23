@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { Follow } from 'src/app/_models/follow';
 
 @Component({
   selector: 'app-member-detail',
@@ -12,12 +13,18 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 })
 export class MemberDetailComponent implements OnInit {
   user: User;
+  follow: Follow;
+  isFollow: boolean;
   constructor(private route: ActivatedRoute, private authService: AuthService,
               private userService: UserService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data.user;
+    });
+
+    this.route.data.subscribe(data => {
+      this.follow = data.follow;
     });
   }
 
@@ -43,4 +50,17 @@ export class MemberDetailComponent implements OnInit {
      }
     return false;
   }
+
+  isFollowed() {
+    if (this.follow != null) {
+      if (this.follow.followeeId > 0) {
+        this.isFollow = true;
+        return true;
+      }
+    }
+    this.isFollow = false;
+    return false;
+  }
+
+
 }
