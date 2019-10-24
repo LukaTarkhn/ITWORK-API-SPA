@@ -49,7 +49,7 @@ namespace ITWORK.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser(int userId,[FromForm] PhotoForCreationDto photoForCreationDto)
+        public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
              if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
@@ -78,6 +78,9 @@ namespace ITWORK.API.Controllers
             photoForCreationDto.PublicId = uploadResult.PublicId;
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
+
+            if (userFromRepo.Photos.Any(u => u.UserId == userId))
+                await DeletePhoto(userId, userFromRepo.Photos.Select(u => u.Id).Max());
 
             if (!userFromRepo.Photos.Any(u => u.IsMain))
                 photo.IsMain = true;
@@ -133,8 +136,8 @@ namespace ITWORK.API.Controllers
 
             var photoFromRepo = await _repo.GetPhoto(id);
 
-            if(photoFromRepo.IsMain)
-                return BadRequest("You cannot delete your main photo");
+            // if(photoFromRepo.IsMain)
+            //     return BadRequest("You cannot delete your main photo");
 
             if (photoFromRepo.PublicID != null)
             {

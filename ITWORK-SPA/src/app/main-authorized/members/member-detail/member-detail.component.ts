@@ -14,7 +14,6 @@ import { Follow } from 'src/app/_models/follow';
 export class MemberDetailComponent implements OnInit {
   user: User;
   follow: Follow;
-  isFollow: boolean;
   constructor(private route: ActivatedRoute, private authService: AuthService,
               private userService: UserService, private alertify: AlertifyService) { }
 
@@ -54,11 +53,9 @@ export class MemberDetailComponent implements OnInit {
   isFollowed() {
     if (this.follow != null) {
       if (this.follow.followeeId > 0) {
-        this.isFollow = true;
         return true;
       }
     }
-    this.isFollow = false;
     return false;
   }
 
