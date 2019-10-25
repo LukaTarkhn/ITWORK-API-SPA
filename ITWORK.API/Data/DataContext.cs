@@ -9,9 +9,11 @@ namespace ITWORK.API.Data
     
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Organization> Organizations { get; set; }
         public DbSet<Follow> Followers { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<OrganizationPhoto> OrganizationPhotos { get; set; }
+        public DbSet<OrganizationFollow> OrganizationFollows { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
