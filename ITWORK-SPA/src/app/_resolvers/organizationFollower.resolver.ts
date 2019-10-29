@@ -19,7 +19,7 @@ export class OrganizationFollowerResolver implements Resolve<OrganizationFollow>
         return this.userService.getOrganizationFollow(this.authService.decodedToken.nameid, route.params.id).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving data');
-                this.router.navigate(['/in']);
+                this.router.navigate(['/vacancy']);
                 return of(null);
             })
         );

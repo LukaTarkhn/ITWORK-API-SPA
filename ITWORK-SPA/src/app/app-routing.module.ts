@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainUnauthorizedComponent } from './main-unauthorized/main-unauthorized.component';
 import { AuthorizationComponent } from './main-unauthorized/authorization/authorization.component';
 import { RegistrationComponent } from './main-unauthorized/registration/registration.component';
-import { MainAuthorizedComponent } from './main-authorized/main-authorized.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthorizedGuard } from './_guards/authorized.guard';
 import { MemberDetailComponent } from './main-authorized/members/member-detail/member-detail.component';
@@ -26,6 +25,9 @@ import { OrganizationDetailResolver } from './_resolvers/organization-detail.res
 import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
 import { OrganizationFollowerResolver } from './_resolvers/organizationFollower.resolver';
 import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
+import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vacancy-list.component';
+import { MemberListComponent } from './main-authorized/members/member-list/member-list.component';
+import { OrganizationListComponent } from './main-authorized/organization/organization-list/organization-list.component';
 
 const routes: Routes = [
   {
@@ -44,11 +46,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       // links that can't be viewed without authentication
-      { path: 'in', component: MainAuthorizedComponent,
-        resolve: {
-          users: MemberListResolver,
-          organizations: OrganizationListResolver}},
-      { path: 'in/:id/:username', component: MemberDetailComponent,
+      { path: 'vacancy', component: VacancyListComponent},
+      { path: 'specialists', component: MemberListComponent,
+        resolve: {users: MemberListResolver}},
+      { path: 'organizations', component: OrganizationListComponent,
+        resolve: {organizations: OrganizationListResolver}},
+      { path: ':id/:username', component: MemberDetailComponent,
         resolve: {
           user: MemberDetailResolver,
           follow: FollowResolver}},

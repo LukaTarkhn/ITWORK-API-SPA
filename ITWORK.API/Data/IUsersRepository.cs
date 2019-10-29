@@ -18,7 +18,7 @@ namespace ITWORK.API.Data
          Task<bool> OrgExists(string name);
          Task<Organization> GetOrganization(int userId, int id);
          Task<Organization> GetOrganizationById(int id);
-         Task<IEnumerable<Organization>> GetOrganizations();
+         Task<PagedList<Organization>> GetOrganizations(OrganizationParams organizationParams);
          Task<Follow> GetFollow(int userId, int recipientId);
          Task<OrganizationFollow> GetOrganizationFollow(int userId, int organizationId);
          Task<Message> GetMessage(int id);

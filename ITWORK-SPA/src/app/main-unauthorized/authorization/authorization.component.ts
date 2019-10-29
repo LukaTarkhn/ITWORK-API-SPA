@@ -23,7 +23,7 @@ export class AuthorizationComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     }, () => {
-      this.router.navigate(['/in']);
+      this.router.navigate(['/vacancy']);
     });
   }
 }

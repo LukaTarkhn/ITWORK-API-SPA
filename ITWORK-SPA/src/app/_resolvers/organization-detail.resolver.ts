@@ -15,7 +15,7 @@ export class OrganizationDetailResolver implements Resolve<Organization> {
         return this.userService.getOrganization(route.params.userId, route.params.id, route.params.name).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving data');
-                this.router.navigate(['/in']);
+                this.router.navigate(['/vacancy']);
                 return of(null);
             })
         );

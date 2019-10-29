@@ -9,13 +9,16 @@ import { Organization } from '../_models/organization';
 @Injectable()
 
 export class OrganizationListResolver implements Resolve<Organization[]> {
+    pageNumber = 1;
+    pageSize = 2;
+
     constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Organization[]> {
-        return this.userService.getOrganizations().pipe(
+        return this.userService.getOrganizations(this.pageNumber, this.pageSize).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving data');
-                this.router.navigate(['/']);
+                this.router.navigate(['/vacancy']);
                 return of(null);
             })
         );

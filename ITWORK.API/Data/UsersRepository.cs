@@ -44,11 +44,11 @@ namespace ITWORK.API.Data
             return organization;
         }
 
-        public async Task<IEnumerable<Organization>> GetOrganizations()
+        public async Task<PagedList<Organization>> GetOrganizations(OrganizationParams organizationParams)
         {
-            var organizations = await _context.Organizations.ToListAsync();
+            var organizations = _context.Organizations;
             
-            return organizations;
+            return await PagedList<Organization>.CreateAsync(organizations, organizationParams.PageNumber, organizationParams.PageSize);
         }
 
         public async Task<bool> OrgExists(string name)

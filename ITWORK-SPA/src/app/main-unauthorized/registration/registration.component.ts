@@ -45,7 +45,7 @@ export class RegistrationComponent implements OnInit {
         this.alertify.error(error);
       }, () => {
         this.authService.login(this.user).subscribe(() => {
-          this.router.navigate(['/in']);
+          this.router.navigate(['/vacancy']);
         });
       });
     }

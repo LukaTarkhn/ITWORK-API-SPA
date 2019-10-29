@@ -41,7 +41,7 @@ export class OrganizationCreateComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       }, () => {
-        this.router.navigate(['/in']);
+        this.router.navigate(['/vacancy']);
       });
   }
 }

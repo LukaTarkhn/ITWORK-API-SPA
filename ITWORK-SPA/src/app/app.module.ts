@@ -107,9 +107,9 @@ export function tokenGetter() {
       OrganizationEditResolver,
       OrganizationDetailResolver,
       OrganizationListResolver,
+      OrganizationFollowerResolver,
       MessagesResolver,
       FollowResolver,
-      OrganizationFollowerResolver,
       PreventUnsavedChanged
    ],
    bootstrap: [

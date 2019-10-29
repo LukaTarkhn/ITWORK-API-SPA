@@ -22,7 +22,7 @@ export class MessagesResolver implements Resolve<Message[]> {
                  this.pageNumber, this.pageSize, this.messageContainer).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving messages');
-                this.router.navigate(['/']);
+                this.router.navigate(['/vacancy']);
                 return of(null);
             })
         );

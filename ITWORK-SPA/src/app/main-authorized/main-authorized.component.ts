@@ -3,6 +3,8 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { Organization } from '../_models/organization';
+import { PaginatedResult } from '../_models/pagination';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-main-authorized',
@@ -14,17 +16,27 @@ export class MainAuthorizedComponent implements OnInit {
   photoUrl: string;
   userId: number;
   username: string;
-  checked = 'Vacancy';
-  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router, private route: ActivatedRoute) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService,
+              private router: Router, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
     this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
     this.userId = this.authService.decodedToken.nameid;
     this.username = this.authService.currentUser.username;
 
-    this.route.data.subscribe(data => {
-      this.organizations = data.organizations;
-    });
+    this.loadOrganizations();
+  }
+
+  loadOrganizations() {
+    this.userService.getOrganizations()
+    .subscribe(
+      (res: PaginatedResult<Organization[]>) => {
+        this.organizations = res.result;
+      },
+      error => {
+        this.alertify.error(error);
+      }
+    );
   }
 
 
@@ -35,10 +47,6 @@ export class MainAuthorizedComponent implements OnInit {
     this.authService.currentUser = null;
     this.alertify.message('logged out');
     this.router.navigate(['/']);
-  }
-
-  toggleMainMenu(checked: string) {
-    this.checked = checked;
   }
 
 }

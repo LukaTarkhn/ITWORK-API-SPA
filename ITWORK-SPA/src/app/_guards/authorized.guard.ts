@@ -14,7 +14,7 @@ export class AuthorizedGuard implements CanActivate {
       return true;
     }
     this.alertify.error('You are already authorized');
-    this.router.navigate(['/in']);
+    this.router.navigate(['/vacancy']);
     return false;
   }
 }

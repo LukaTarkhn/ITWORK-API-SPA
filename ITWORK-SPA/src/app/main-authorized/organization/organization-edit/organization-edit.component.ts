@@ -44,7 +44,7 @@ export class OrganizationEditComponent implements OnInit {
   this.alertify.confirm('Are you sure?', () => {
     this.userService.deleteOrganization(this.authService.decodedToken.nameid, id).subscribe(data => {
       this.alertify.warning('You delete organization: ' + this.organization.name);
-      this.router.navigate(['/in']);
+      this.router.navigate(['/vacancy']);
     }, error => {
       this.alertify.error(error);
     });

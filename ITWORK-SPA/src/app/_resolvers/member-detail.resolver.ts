@@ -15,7 +15,7 @@ export class MemberDetailResolver implements Resolve<User> {
         return this.userService.getUser(route.params.id, route.params.username).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving data');
-                this.router.navigate(['/in']);
+                this.router.navigate(['/vacancy']);
                 return of(null);
             })
         );

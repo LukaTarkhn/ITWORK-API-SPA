@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ITWORK.API.Data;
 using ITWORK.API.Dtos;
+using ITWORK.API.Helpers;
 using ITWORK.API.Modules;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,11 +28,13 @@ namespace ITWORK.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOrganizations()
+        public async Task<IActionResult> GetOrganizations([FromQuery]OrganizationParams organizationParams)
         {
-            var organizations = await _repo.GetOrganizations();
+            var organizations = await _repo.GetOrganizations(organizationParams);
 
             var organizationsToReturn = _mapper.Map<IEnumerable<OrganizationForListDto>>(organizations);
+
+             Response.AddPagination(organizations.CurrentPage, organizations.PageSize, organizations.TotalCount, organizations.TotalPages);
 
             return Ok(organizationsToReturn);
         }

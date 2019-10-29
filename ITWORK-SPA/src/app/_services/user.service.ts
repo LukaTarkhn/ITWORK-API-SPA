@@ -67,8 +67,25 @@ export class UserService {
     return this.http.post(this.baseUrl + 'users/organizations', organization);
   }
 
-  getOrganizations(): Observable<Organization[]> {
-    return this.http.get<Organization[]>(this.baseUrl + 'users/organizations');
+  getOrganizations(page?, itemsPerPage?, followesParam?): Observable<PaginatedResult<Organization[]>> {
+    const paginatedResult: PaginatedResult<Organization[]> = new PaginatedResult<Organization[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+    return this.http.get<Organization[]>(this.baseUrl + 'users/organizations', { observe: 'response', params})
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
   }
 
   getOrganization(userId: number, id: number, name: string): Observable<Organization> {

@@ -24,4 +24,11 @@ export class AppComponent implements OnInit {
       this.authService.changeMemberPhoto(user.photoUrl);
     }
   }
+
+  isLoggedIn() {
+    if (this.authService.loggedIn()) {
+      return true;
+    }
+    return false;
+  }
 }

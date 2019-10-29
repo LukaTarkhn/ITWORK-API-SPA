@@ -17,7 +17,7 @@ export class OrganizationEditResolver implements Resolve<Organization> {
         return this.userService.getOrganization(this.authService.decodedToken.nameid, route.params.id, route.params.name).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving your data');
-                this.router.navigate(['/in']);
+                this.router.navigate(['/vacancy']);
                 return of(null);
             })
         );
