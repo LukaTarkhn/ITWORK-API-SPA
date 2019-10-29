@@ -41,6 +41,9 @@ namespace ITWORK.API.Data
             .HasOne(u => u.Recipient)
             .WithMany(m => m.MessagesRecieved)
             .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<OrganizationFollow>()
+            .HasKey(k => new { k.FollowerId, k.FolloweeId });
         }  
     }
 }

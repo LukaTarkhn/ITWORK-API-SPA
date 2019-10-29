@@ -7,5 +7,7 @@
 <p>
  member since: {{organization.dateCreated | date: 'short'}}
 </p>
-<button>Follow</button>
+<button (click)="sendOrganizationFollow(organization.id)" *ngIf="!isCurrentUser() && !isFollowed()">Follow</button>
+<button (click)="sendOrganizationUnfollow(organization.id)" *ngIf="!isCurrentUser() && isFollowed()">Unfollow</button>
 <button *ngIf="isCurrentUser()" [routerLink]="['/organization/edit',organization.userId, organization.id, organization.name]">Edit</button>
+<button [routerLink]="['/organization-follower-list']" *ngIf="isCurrentUser()">Follow List</button>

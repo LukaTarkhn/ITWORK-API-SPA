@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITWORK.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191025124448_ExpendedOrganizationClass")]
-    partial class ExpendedOrganizationClass
+    [Migration("20191028095131_AddedUsersPhotosOrganizationsMessages")]
+    partial class AddedUsersPhotosOrganizationsMessages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,18 +85,13 @@ namespace ITWORK.API.Migrations
 
             modelBuilder.Entity("ITWORK.API.Modules.OrganizationFollow", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("FollowerId");
 
                     b.Property<int>("FolloweeId");
 
-                    b.Property<int>("FollowerId");
-
-                    b.HasKey("Id");
+                    b.HasKey("FollowerId", "FolloweeId");
 
                     b.HasIndex("FolloweeId");
-
-                    b.HasIndex("FollowerId");
 
                     b.ToTable("OrganizationFollows");
                 });

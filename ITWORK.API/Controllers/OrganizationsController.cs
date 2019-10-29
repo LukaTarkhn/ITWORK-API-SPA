@@ -106,5 +106,68 @@ namespace ITWORK.API.Controllers
             
             return BadRequest("Failed to delete organization");
         }
+
+        [HttpGet("{userId}/follows/{organizationId}")]
+        public async Task<IActionResult> GetOrganizationFollow(int userId, int organizationId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var follow = await _repo.GetOrganizationFollow(userId,organizationId);
+
+            var followToReturn = _mapper.Map<FollowForReturnDto>(follow);
+
+            return Ok(followToReturn);
+        }
+
+        [HttpPost("{userId}/follow/{organizationId}")]
+        public async Task<IActionResult> FollowOrganization(int userId, int organizationId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var follow = await _repo.GetOrganizationFollow(userId, organizationId);
+
+            if (follow != null)
+                return BadRequest("You already follow this organization");
+            
+            if (await _repo.GetOrganizationById(organizationId) == null)
+                return NotFound();
+            
+            follow = new OrganizationFollow
+            {
+                FollowerId = userId,
+                FolloweeId = organizationId
+            };
+
+            _repo.Add<OrganizationFollow>(follow);
+
+            if (await _repo.SaveAll())
+                return Ok();
+            
+            return BadRequest("Failed to follow organization");
+        }
+
+        [HttpDelete("{userId}/unfollow/{organizationId}")]
+        public async Task<IActionResult> UnfollowOrganization(int userId, int organizationId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var follow = await _repo.GetOrganizationFollow(userId, organizationId);
+
+            if (follow == null)
+                return BadRequest("You are not followed this user");
+            
+            if (await _repo.GetOrganizationById(organizationId) == null)
+                return NotFound();
+    
+            _repo.Delete(follow);
+
+            if (await _repo.SaveAll())
+                return Ok();
+            
+            return BadRequest("Failed to unfollow user");
+        }
     }
 }

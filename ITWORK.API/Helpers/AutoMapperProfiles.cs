@@ -38,6 +38,7 @@ namespace ITWORK.API.Helpers
             CreateMap<Organization, OrganizationForReturnDto>();
             CreateMap<OrganizationForCreationDto, Organization>();
             CreateMap<OrganizationForUpdateDto, Organization>();
+            CreateMap<OrganizationFollow, FollowForReturnDto>();
         }
     }
 }

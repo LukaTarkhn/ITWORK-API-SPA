@@ -16,15 +16,16 @@ import { MemberFollowersComponent } from './main-authorized/members/member-follo
 import { MemberFollowersResolver } from './_resolvers/member-followers.resolver';
 import { MessagesListComponent } from './main-authorized/members/messages-list/messages-list.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
-import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
+import { FollowResolver } from './_resolvers/follower.resolver';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
 import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
 import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
+import { OrganizationFollowersComponent } from './main-authorized/organization/organization-followers/organization-followers.component';
 import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
 import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
-import { FollowResolver } from './_resolvers/follower.resolver';
-
+import { OrganizationFollowerResolver } from './_resolvers/organizationFollower.resolver';
+import { PreventUnsavedChanged } from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   {
@@ -63,7 +64,11 @@ const routes: Routes = [
         resolve: {organization: OrganizationEditResolver},
         canDeactivate: [PreventUnsavedChanged]},
       { path: 'organization/:userId/:id/:name', component: OrganizationDetailComponent,
-        resolve: {organization: OrganizationDetailResolver}},
+        resolve: {
+          organization: OrganizationDetailResolver,
+          follow: OrganizationFollowerResolver}},
+      { path: 'organization-follower-list', component: OrganizationFollowersComponent,
+          resolve: {users: MemberFollowersResolver}},
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

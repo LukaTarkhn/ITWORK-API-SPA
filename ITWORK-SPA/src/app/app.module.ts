@@ -28,14 +28,16 @@ import { MemberPhotoEditorComponent } from './main-authorized/members/member-edi
 import { MessagesListComponent } from './main-authorized/members/messages-list/messages-list.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { FollowResolver } from './_resolvers/follower.resolver';
-import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vacancy-list.component';
 import { OrganizationListComponent } from './main-authorized/organization/organization-list/organization-list.component';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
 import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
 import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
+import { OrganizationFollowersComponent } from './main-authorized/organization/organization-followers/organization-followers.component';
 import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
 import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
+import { OrganizationFollowerResolver } from './_resolvers/organizationFollower.resolver';
+import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vacancy-list.component';
 
 // services
 import { AuthService } from './_services/auth.service';
@@ -71,6 +73,7 @@ export function tokenGetter() {
       OrganizationCreateComponent,
       OrganizationEditComponent,
       OrganizationDetailComponent,
+      OrganizationFollowersComponent,
       VacancyListComponent,
       TimeAgoPipe
    ],
@@ -106,6 +109,7 @@ export function tokenGetter() {
       OrganizationListResolver,
       MessagesResolver,
       FollowResolver,
+      OrganizationFollowerResolver,
       PreventUnsavedChanged
    ],
    bootstrap: [

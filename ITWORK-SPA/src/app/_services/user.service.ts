@@ -83,6 +83,18 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'users/organizations/' + userId + '/' + id);
   }
 
+  sendOrganizationFollow(id: number, recipientId: number) {
+    return this.http.post(this.baseUrl + 'users/organizations/' + id + '/follow/' + recipientId, {});
+  }
+
+  sendOrganizationUnfollow(id: number, recipientId: number) {
+    return this.http.delete(this.baseUrl + 'users/organizations/' + id + '/unfollow/' + recipientId);
+  }
+
+  getOrganizationFollow(id: number, recipientId: number): Observable<Organization> {
+    return this.http.get<Organization>(this.baseUrl + 'users/organizations/' + id + '/follows/' + recipientId);
+  }
+
   sendFollow(id: number, recipientId: number) {
     return this.http.post(this.baseUrl + 'users/' + id + '/follow/' + recipientId, {});
   }

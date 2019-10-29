@@ -37,6 +37,13 @@ namespace ITWORK.API.Data
             return organization;
         }
 
+        public async Task<Organization> GetOrganizationById(int id)
+        {
+            var organization = await _context.Organizations.FirstOrDefaultAsync(p => p.Id == id);
+
+            return organization;
+        }
+
         public async Task<IEnumerable<Organization>> GetOrganizations()
         {
             var organizations = await _context.Organizations.ToListAsync();
@@ -125,6 +132,13 @@ namespace ITWORK.API.Data
                 u.FollowerId == userId && u.FolloweeId == recipientId);
         }
 
+        public async Task<OrganizationFollow> GetOrganizationFollow(int userId, int organizationId)
+        {
+            return await _context.OrganizationFollows.FirstOrDefaultAsync(u => 
+                u.FollowerId == userId && u.FolloweeId == organizationId);
+        }
+
+        
         public async Task<Message> GetMessage(int id)
         {
             return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
