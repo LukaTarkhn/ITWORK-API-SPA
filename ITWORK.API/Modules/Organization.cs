@@ -13,6 +13,7 @@ namespace ITWORK.API.Modules
         public User User { get; set; }
         public int UserId { get; set; }
         public ICollection<OrganizationPhoto> OrganizationPhotos { get; set; }
-        public ICollection<OrganizationFollow> OrganizationFollows { get; set; }
+        public ICollection<OrganizationHeadPhoto> OrganizationHeadPhotos { get; set; }
+        public ICollection<OrganizationFollow> OrganizationFollowers { get; set; }
     }
 }

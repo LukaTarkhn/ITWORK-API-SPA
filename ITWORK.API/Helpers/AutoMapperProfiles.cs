@@ -25,6 +25,14 @@ namespace ITWORK.API.Helpers
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+
+            CreateMap<OrganizationPhoto, OrganizationPhotosForDetailedDto>();
+            CreateMap<OrganizationPhoto, OrganizationPhotoForReturnDto>();
+            CreateMap<OrganizationPhotoForCreationDto, OrganizationPhoto>();
+            
+            CreateMap<OrganizationHeadPhoto, OrganizationPhotosForDetailedDto>();
+            CreateMap<OrganizationHeadPhoto, OrganizationPhotoForReturnDto>();
+            CreateMap<OrganizationPhotoForCreationDto, OrganizationHeadPhoto>();
             // messages
             CreateMap<MessageForCreationDto, Message>().ReverseMap();
             CreateMap<Message, MessageForReturnDto>()
@@ -33,8 +41,14 @@ namespace ITWORK.API.Helpers
                 .ForMember(m => m.senderKnownAs, opt => opt.MapFrom(u => u.Sender.Username))
                 .ForMember(m => m.recipientKnownAs, opt => opt.MapFrom(u => u.Recipient.Username));
             // organization
-            CreateMap<Organization, OrganizationForListDto>();
-            CreateMap<Organization, OrganizationForDetailedDto>();
+            CreateMap<Organization, OrganizationForListDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => {
+                opt.MapFrom(src => src.OrganizationPhotos.FirstOrDefault(p => p.IsMain).Url);
+            });
+            CreateMap<Organization, OrganizationForDetailedDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => {
+                opt.MapFrom(src => src.OrganizationPhotos.FirstOrDefault(p => p.IsMain).Url);
+            });
             CreateMap<Organization, OrganizationForReturnDto>();
             CreateMap<OrganizationForCreationDto, Organization>();
             CreateMap<OrganizationForUpdateDto, Organization>();

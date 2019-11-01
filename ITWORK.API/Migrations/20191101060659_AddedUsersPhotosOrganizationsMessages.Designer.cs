@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITWORK.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191028095131_AddedUsersPhotosOrganizationsMessages")]
+    [Migration("20191101060659_AddedUsersPhotosOrganizationsMessages")]
     partial class AddedUsersPhotosOrganizationsMessages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,35 @@ namespace ITWORK.API.Migrations
 
                     b.HasIndex("FolloweeId");
 
-                    b.ToTable("OrganizationFollows");
+                    b.ToTable("OrganizationFollowers");
+                });
+
+            modelBuilder.Entity("ITWORK.API.Modules.OrganizationHeadPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsMain");
+
+                    b.Property<int>("OrganizationId");
+
+                    b.Property<string>("PublicID");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OrganizationHeadPhotos");
                 });
 
             modelBuilder.Entity("ITWORK.API.Modules.OrganizationPhoto", b =>
@@ -113,9 +141,13 @@ namespace ITWORK.API.Migrations
 
                     b.Property<string>("Url");
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrganizationId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("OrganizationPhotos");
                 });
@@ -203,7 +235,7 @@ namespace ITWORK.API.Migrations
             modelBuilder.Entity("ITWORK.API.Modules.OrganizationFollow", b =>
                 {
                     b.HasOne("ITWORK.API.Modules.Organization", "Followee")
-                        .WithMany("OrganizationFollows")
+                        .WithMany("OrganizationFollowers")
                         .HasForeignKey("FolloweeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -213,11 +245,29 @@ namespace ITWORK.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ITWORK.API.Modules.OrganizationHeadPhoto", b =>
+                {
+                    b.HasOne("ITWORK.API.Modules.Organization", "Organization")
+                        .WithMany("OrganizationHeadPhotos")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ITWORK.API.Modules.User", "User")
+                        .WithMany("OrganizationHeadPhotos")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("ITWORK.API.Modules.OrganizationPhoto", b =>
                 {
                     b.HasOne("ITWORK.API.Modules.Organization", "Organization")
                         .WithMany("OrganizationPhotos")
                         .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ITWORK.API.Modules.User", "User")
+                        .WithMany("OrganizationPhotos")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

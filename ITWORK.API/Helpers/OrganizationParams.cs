@@ -10,5 +10,10 @@ namespace ITWORK.API.Helpers
             get { return pageSize; }
             set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
         }
+
+
+        public int OrganizationId { get; set; }
+        public bool Followees { get; set; } = false;
+        public bool Followers { get; set; } = false;
     }
 }

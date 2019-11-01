@@ -30,16 +30,32 @@ namespace ITWORK.API.Data
             return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
         }
 
+        public async Task<OrganizationPhoto> GetMainPhotoForOrganization(int organizationId)
+        {
+            return await _context.OrganizationPhotos.Where(u => u.OrganizationId == organizationId).FirstOrDefaultAsync(p => p.IsMain);
+        }
+
+        public async Task<OrganizationHeadPhoto> GetMainHeadPhotoForOrganization(int organizationId)
+        {
+            return await _context.OrganizationHeadPhotos.Where(u => u.OrganizationId == organizationId).FirstOrDefaultAsync(p => p.IsMain);
+        }
+        
         public async Task<Organization> GetOrganization(int userId, int id)
         {
-            var organization = await _context.Organizations.FirstOrDefaultAsync(p => p.UserId == userId && p.Id == id);
+            var organization = await _context.Organizations
+                .Include(x => x.OrganizationPhotos)
+                .Include(x => x.OrganizationHeadPhotos)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             return organization;
         }
 
         public async Task<Organization> GetOrganizationById(int id)
         {
-            var organization = await _context.Organizations.FirstOrDefaultAsync(p => p.Id == id);
+            var organization = await _context.Organizations
+                .Include(x => x.OrganizationPhotos)
+                .Include(x => x.OrganizationHeadPhotos)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             return organization;
         }
@@ -49,6 +65,20 @@ namespace ITWORK.API.Data
             var organizations = _context.Organizations;
             
             return await PagedList<Organization>.CreateAsync(organizations, organizationParams.PageNumber, organizationParams.PageSize);
+        }
+
+        public async Task<OrganizationPhoto> GetOrganizationPhoto(int id)
+        {
+            var organizationPhoto = await _context.OrganizationPhotos.FirstOrDefaultAsync(p => p.Id == id);
+
+            return organizationPhoto;
+        }
+
+        public async Task<OrganizationHeadPhoto> GetOrganizationHeadPhoto(int id)
+        {
+            var organizationHeadPhoto = await _context.OrganizationHeadPhotos.FirstOrDefaultAsync(p => p.Id == id);
+
+            return organizationHeadPhoto;
         }
 
         public async Task<bool> OrgExists(string name)
@@ -76,7 +106,12 @@ namespace ITWORK.API.Data
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.Include(p => p.Photos).Include(o => o.Organizations).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users
+                .Include(p => p.Photos)
+                .Include(o => o.Organizations)
+                .Include(x => x.OrganizationPhotos)
+                .Include(x => x.OrganizationHeadPhotos)
+                .FirstOrDefaultAsync(u => u.Id == id);
             
             return user;
         }
@@ -134,7 +169,7 @@ namespace ITWORK.API.Data
 
         public async Task<OrganizationFollow> GetOrganizationFollow(int userId, int organizationId)
         {
-            return await _context.OrganizationFollows.FirstOrDefaultAsync(u => 
+            return await _context.OrganizationFollowers.FirstOrDefaultAsync(u => 
                 u.FollowerId == userId && u.FolloweeId == organizationId);
         }
 

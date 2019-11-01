@@ -18,6 +18,10 @@ namespace ITWORK.API.Data
          Task<bool> OrgExists(string name);
          Task<Organization> GetOrganization(int userId, int id);
          Task<Organization> GetOrganizationById(int id);
+         Task<OrganizationPhoto> GetOrganizationPhoto(int id);
+         Task<OrganizationHeadPhoto> GetOrganizationHeadPhoto(int id);
+         Task<OrganizationPhoto> GetMainPhotoForOrganization(int organizationId);
+         Task<OrganizationHeadPhoto> GetMainHeadPhotoForOrganization(int organizationId);
          Task<PagedList<Organization>> GetOrganizations(OrganizationParams organizationParams);
          Task<Follow> GetFollow(int userId, int recipientId);
          Task<OrganizationFollow> GetOrganizationFollow(int userId, int organizationId);

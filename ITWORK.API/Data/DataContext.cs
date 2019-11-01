@@ -13,7 +13,8 @@ namespace ITWORK.API.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<OrganizationPhoto> OrganizationPhotos { get; set; }
-        public DbSet<OrganizationFollow> OrganizationFollows { get; set; }
+        public DbSet<OrganizationHeadPhoto> OrganizationHeadPhotos { get; set; }
+        public DbSet<OrganizationFollow> OrganizationFollowers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

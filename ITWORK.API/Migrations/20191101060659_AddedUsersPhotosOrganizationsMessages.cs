@@ -129,7 +129,7 @@ namespace ITWORK.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrganizationFollows",
+                name: "OrganizationFollowers",
                 columns: table => new
                 {
                     FollowerId = table.Column<int>(nullable: false),
@@ -137,16 +137,47 @@ namespace ITWORK.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrganizationFollows", x => new { x.FollowerId, x.FolloweeId });
+                    table.PrimaryKey("PK_OrganizationFollowers", x => new { x.FollowerId, x.FolloweeId });
                     table.ForeignKey(
-                        name: "FK_OrganizationFollows_Organizations_FolloweeId",
+                        name: "FK_OrganizationFollowers_Organizations_FolloweeId",
                         column: x => x.FolloweeId,
                         principalTable: "Organizations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrganizationFollows_Users_FollowerId",
+                        name: "FK_OrganizationFollowers_Users_FollowerId",
                         column: x => x.FollowerId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrganizationHeadPhotos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Url = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    IsMain = table.Column<bool>(nullable: false),
+                    PublicID = table.Column<string>(nullable: true),
+                    OrganizationId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationHeadPhotos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganizationHeadPhotos_Organizations_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organizations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrganizationHeadPhotos_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -163,7 +194,8 @@ namespace ITWORK.API.Migrations
                     DateAdded = table.Column<DateTime>(nullable: false),
                     IsMain = table.Column<bool>(nullable: false),
                     PublicID = table.Column<string>(nullable: true),
-                    OrganizationId = table.Column<int>(nullable: false)
+                    OrganizationId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,6 +204,12 @@ namespace ITWORK.API.Migrations
                         name: "FK_OrganizationPhotos_Organizations_OrganizationId",
                         column: x => x.OrganizationId,
                         principalTable: "Organizations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrganizationPhotos_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -192,14 +230,29 @@ namespace ITWORK.API.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganizationFollows_FolloweeId",
-                table: "OrganizationFollows",
+                name: "IX_OrganizationFollowers_FolloweeId",
+                table: "OrganizationFollowers",
                 column: "FolloweeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationHeadPhotos_OrganizationId",
+                table: "OrganizationHeadPhotos",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationHeadPhotos_UserId",
+                table: "OrganizationHeadPhotos",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrganizationPhotos_OrganizationId",
                 table: "OrganizationPhotos",
                 column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationPhotos_UserId",
+                table: "OrganizationPhotos",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Organizations_UserId",
@@ -221,7 +274,10 @@ namespace ITWORK.API.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "OrganizationFollows");
+                name: "OrganizationFollowers");
+
+            migrationBuilder.DropTable(
+                name: "OrganizationHeadPhotos");
 
             migrationBuilder.DropTable(
                 name: "OrganizationPhotos");

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ITWORK.API.Dtos
 {
@@ -9,5 +10,7 @@ namespace ITWORK.API.Dtos
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
         public int UserId { get; set; }
+        public string PhotoUrl { get; set; }
+        public ICollection<PhotosForDetailedDto> OrganizationPhotos { get; set; }
     }
 }

@@ -14,6 +14,8 @@ namespace ITWORK.API.Modules
         public DateTime LastAction { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Organization> Organizations { get; set; }
+        public ICollection<OrganizationPhoto> OrganizationPhotos { get; set; }
+        public ICollection<OrganizationHeadPhoto> OrganizationHeadPhotos { get; set; }
         public ICollection<Follow> Followers { get; set; }
         public ICollection<Follow> Followees { get; set; }
         public ICollection<Message> MessagesSent { get; set; }

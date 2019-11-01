@@ -2,7 +2,7 @@ using System;
 
 namespace ITWORK.API.Dtos
 {
-    public class PhotoForReturnDto
+    public class OrganizationPhotoForReturnDto
     {
         public int Id { get; set; }
         public string Url { get; set; }
@@ -10,6 +10,7 @@ namespace ITWORK.API.Dtos
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
         public string PublicId { get; set; }
+        public int OrganizationId { get; set; }
         public int UserId { get; set; }
     }
 }

@@ -3,8 +3,8 @@
 <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()" >
   <h4>username Edit</h4>
   <textarea name="username" rows="4" [(ngModel)]="user.username"></textarea>
-  <h4>Created Edit</h4>
-  <textarea name="created" rows="4" [(ngModel)]="user.created"></textarea>
+  <h4>Email Edit</h4>
+  <textarea name="email" rows="4" [(ngModel)]="user.email"></textarea>
 </form>
 
 <button [disabled]="!editForm.dirty" form="editForm">Save</button>
