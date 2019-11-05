@@ -62,7 +62,9 @@ namespace ITWORK.API.Data
 
         public async Task<PagedList<Organization>> GetOrganizations(OrganizationParams organizationParams)
         {
-            var organizations = _context.Organizations;
+            var organizations = _context.Organizations
+                .Include(x => x.OrganizationPhotos)
+                .Include(x => x.OrganizationHeadPhotos);
             
             return await PagedList<Organization>.CreateAsync(organizations, organizationParams.PageNumber, organizationParams.PageSize);
         }

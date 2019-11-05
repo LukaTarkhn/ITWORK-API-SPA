@@ -1,6 +1,9 @@
+<br> <br>
+<img style="width: 950px; height: 250px" src="{{organization.organizationHeadPhotoUrl}}" alt="{{organization.name}}" *ngIf="organization.organizationHeadPhotoUrl">
 <p>
   {{organization.name}}
 </p>
+<img style="width: 120px; height: 120px" src="{{organization.organizationPhotoUrl || '../../../../../../assets/organization.png'}}" alt="{{organization.name}}">
 <p>
   {{organization.description}}
 </p>

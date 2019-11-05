@@ -15,6 +15,8 @@ export class OrganizationEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   organization: Organization;
   organizations: Organization[];
+  organizationPhotoUrl: string;
+  organizationHeadPhotoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
@@ -49,5 +51,13 @@ export class OrganizationEditComponent implements OnInit {
       this.alertify.error(error);
     });
   });
+  }
+
+  updatePhoto(organizationPhotoUrl)  {
+    this.organization.organizationPhotoUrl = organizationPhotoUrl;
+  }
+
+  updateHeadPhoto(organizationHeadPhotoUrl)  {
+    this.organization.organizationHeadPhotoUrl = organizationHeadPhotoUrl;
   }
 }

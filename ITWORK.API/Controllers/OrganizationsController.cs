@@ -45,7 +45,7 @@ namespace ITWORK.API.Controllers
         {
             var orgFromRepo = await _repo.GetOrganization(userId, id);
 
-            var organization = _mapper.Map<OrganizationForReturnDto>(orgFromRepo);
+            var organization = _mapper.Map<OrganizationForDetailedDto>(orgFromRepo);
         
             return Ok(organization);
         }

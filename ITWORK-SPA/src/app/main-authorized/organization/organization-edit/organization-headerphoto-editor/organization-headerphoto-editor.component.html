@@ -1,0 +1,20 @@
+<div class="row"> 
+    <div class="col-md-3">
+        <h3>Organization header</h3>
+        <input type="file" ng2FileSelect [uploader]="uploader" />
+        <button type="button" 
+                class="btn btn-success btn-s"
+                (click)="uploader.uploadAll()" 
+                [disabled]="!uploader.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span> Upload
+        </button>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+        
+        <tr *ngFor="let item of uploader.queue">
+            <td><strong>{{ item?.file?.name }}</strong></td>
+            <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+        </tr> 
+  </div>
+</div>

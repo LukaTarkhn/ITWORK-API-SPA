@@ -13,7 +13,10 @@
       <div class="dropdown-content1">
         <a href="#" [routerLink]="['/create-organization']">Create organization</a>
         <p *ngFor="let organization of organizations">
-          <a *ngIf="this.userId == organization.userId" href="#" [routerLink]="['/organization/',organization.userId, organization.id, organization.name]">{{organization.name}}({{organization.userId}}, {{organization.id}}) </a> 
+          <a *ngIf="this.userId == organization.userId" href="#" [routerLink]="['/organization/',organization.userId, organization.id, organization.name]">
+            <img src="{{organization.organizationPhotoUrl || '../../../../assets/organization.png'}}" style="width:  50px; height: 50px;" >
+            {{organization.name}}
+            </a> 
         </p>
       </div>
     </div>

@@ -1,10 +1,9 @@
 <h3>Organizations list</h3>
 <div *ngFor="let organization of organizations">
   <h5>{{organization.name}}</h5>
+  <img style="width: 70px; height: 70px" src="{{organization.organizationPhotoUrl || '../../../../../../assets/organization.png'}}" alt="{{organization.name}}">
   <p>{{organization.description}}</p>
-  <p> org: {{organization.id}}</p>
-  <p> user: {{organization.userId}}</p>
-  <button [routerLink]="['/organization/',organization.userId, organization.id, organization.name]">watch</button>
+  <button [routerLink]="['/organization/',organization.userId, organization.id, organization.name]">View</button>
   <hr>
 </div>
 

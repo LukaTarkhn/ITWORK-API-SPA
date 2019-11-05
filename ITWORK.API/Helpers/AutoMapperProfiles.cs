@@ -42,14 +42,14 @@ namespace ITWORK.API.Helpers
                 .ForMember(m => m.recipientKnownAs, opt => opt.MapFrom(u => u.Recipient.Username));
             // organization
             CreateMap<Organization, OrganizationForListDto>()
-                .ForMember(dest => dest.PhotoUrl, opt => {
-                opt.MapFrom(src => src.OrganizationPhotos.FirstOrDefault(p => p.IsMain).Url);
-            });
+                .ForMember(dest => dest.OrganizationPhotoUrl, opt => opt.MapFrom(src => src.OrganizationPhotos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(dest => dest.OrganizationHeadPhotoUrl, opt => opt.MapFrom(src => src.OrganizationHeadPhotos.FirstOrDefault(p => p.IsMain).Url));
             CreateMap<Organization, OrganizationForDetailedDto>()
-                .ForMember(dest => dest.PhotoUrl, opt => {
-                opt.MapFrom(src => src.OrganizationPhotos.FirstOrDefault(p => p.IsMain).Url);
-            });
-            CreateMap<Organization, OrganizationForReturnDto>();
+                .ForMember(dest => dest.OrganizationPhotoUrl, opt => opt.MapFrom(src => src.OrganizationPhotos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(dest => dest.OrganizationHeadPhotoUrl, opt => opt.MapFrom(src => src.OrganizationHeadPhotos.FirstOrDefault(p => p.IsMain).Url));
+            CreateMap<Organization, OrganizationForReturnDto>()
+                .ForMember(dest => dest.OrganizationPhotoUrl, opt => opt.MapFrom(src => src.OrganizationPhotos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(dest => dest.OrganizationHeadPhotoUrl, opt => opt.MapFrom(src => src.OrganizationHeadPhotos.FirstOrDefault(p => p.IsMain).Url));
             CreateMap<OrganizationForCreationDto, Organization>();
             CreateMap<OrganizationForUpdateDto, Organization>();
             CreateMap<OrganizationFollow, FollowForReturnDto>();

@@ -33,6 +33,10 @@ import { OrganizationCreateComponent } from './main-authorized/organization/orga
 import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
 import { OrganizationDetailComponent } from './main-authorized/organization/organization-detail/organization-detail.component';
 import { OrganizationFollowersComponent } from './main-authorized/organization/organization-followers/organization-followers.component';
+// tslint:disable-next-line: max-line-length
+import { OrganizationPhotoEditorComponent } from './main-authorized/organization/organization-edit/organization-photo-editor/organization-photo-editor.component';
+// tslint:disable-next-line: max-line-length
+import { OrganizationHeaderphotoEditorComponent } from './main-authorized/organization/organization-edit/organization-headerphoto-editor/organization-headerphoto-editor.component'
 import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
 import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
@@ -74,6 +78,8 @@ export function tokenGetter() {
       OrganizationEditComponent,
       OrganizationDetailComponent,
       OrganizationFollowersComponent,
+      OrganizationPhotoEditorComponent,
+      OrganizationHeaderphotoEditorComponent,
       VacancyListComponent,
       TimeAgoPipe
    ],

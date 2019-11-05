@@ -1,4 +1,6 @@
-
+<br><br>
+<img style="width: 950px; height: 250px; margin-left: 20px;" src="{{organization.organizationHeadPhotoUrl}}" *ngIf="organization.organizationHeadPhotoUrl"> <br>
+<img style="width: 130px; height: 130px; margin-left: 20px;" src="{{organization.organizationPhotoUrl || '../../../../../../assets/organization.png'}}">
 <form #editForm="ngForm" id="editForm" (ngSubmit)="updateOrganization()">
   <h4>Organization name</h4>
   <textarea name="name" rows="4" [(ngModel)]="organization.name"></textarea>
@@ -7,7 +9,9 @@
 </form>
 
 
-
 <button [disabled]="!editForm.dirty" form="editForm">Save</button>
 
-<button (click)="deleteOrganization(this.organization.id)">Delete this organization</button>
+<button (click)="deleteOrganization(organization.id)">Delete this organization</button>
+
+<app-organization-photo-editor [currentOrganizationId]="organization.id" [organizationPhotos]="organization.organizationPhotos" (getOrganizationPhotoChange)="updatePhoto($event)"></app-organization-photo-editor>
+<app-organization-headerphoto-editor [currentOrganizationId]="organization.id" [organizationPhotos]="organization.organizationHeadPhotos" (getOrganizationHeadPhotoChange)="updateHeadPhoto($event)"></app-organization-headerphoto-editor>

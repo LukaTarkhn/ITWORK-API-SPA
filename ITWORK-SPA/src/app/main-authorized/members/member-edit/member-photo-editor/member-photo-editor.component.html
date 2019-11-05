@@ -1,20 +1,5 @@
-
-<div *ngFor="let photo of photos">
-
-    <img style="width: 70px; height: 70px;" src="{{photo.url}}">
-    <!-- <button 
-    (click)="setMainPhoto(photo)" 
-    [disabled]="photo.isMain">main</button>
-    <button (click)="deletePhoto(photo.id)" [disabled]="photo.isMain">delete</button> -->
-  </div>
-  
-  
-  
-  
-  <div class="row">
-   
+<div class="row"> 
       <div class="col-md-3">
-  
           <h3>Select files</h3>
           <input type="file" ng2FileSelect [uploader]="uploader" />
           <button type="button" 
@@ -31,4 +16,5 @@
               <td><strong>{{ item?.file?.name }}</strong></td>
               <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
           </tr> 
+    </div>
   </div>

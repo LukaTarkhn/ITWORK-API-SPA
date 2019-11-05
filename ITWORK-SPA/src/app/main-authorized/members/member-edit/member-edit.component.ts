@@ -26,7 +26,6 @@ export class MemberEditComponent implements OnInit {
 
   ngOnInit() {
     this.rout.data.subscribe(data => {
-      debugger;
       this.user = data.user;
     });
     this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);

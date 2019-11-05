@@ -75,7 +75,7 @@ namespace ITWORK.API.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(150).Height(150).Crop("fill").Gravity("face")
+                        Transformation = new Transformation().Width(950).Height(250).Crop("scale")
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);
