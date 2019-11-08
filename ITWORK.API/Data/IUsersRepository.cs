@@ -25,6 +25,7 @@ namespace ITWORK.API.Data
          Task<PagedList<Organization>> GetOrganizations(OrganizationParams organizationParams);
          Task<Follow> GetFollow(int userId, int recipientId);
          Task<OrganizationFollow> GetOrganizationFollow(int userId, int organizationId);
+        Task<PagedList<User>> GetOrganizationFollowers(UserParams userParams);
          Task<Message> GetMessage(int id);
          Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
          Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);

@@ -64,9 +64,32 @@ namespace ITWORK.API.Data
         {
             var organizations = _context.Organizations
                 .Include(x => x.OrganizationPhotos)
-                .Include(x => x.OrganizationHeadPhotos);
+                .Include(x => x.OrganizationHeadPhotos)
+                .Include(x => x.OrganizationFollowers).AsQueryable();
+
+            if (organizationParams.Followees) 
+            {
+                var follows = await _context.OrganizationFollowers.Where(u => u.FollowerId == organizationParams.UserId).ToListAsync();
+                var followedOrganizationId = follows.Select(i => i.FolloweeId);
+                organizations = organizations.Where(u => followedOrganizationId.Contains(u.Id));
+            }
+                
             
+
             return await PagedList<Organization>.CreateAsync(organizations, organizationParams.PageNumber, organizationParams.PageSize);
+        }
+
+        public async Task<PagedList<User>> GetOrganizationFollowers(UserParams userParams)
+        {
+            var users =  _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastAction).AsQueryable();
+
+            users = users.Where(u => u.Id != userParams.UserId);
+
+            var follows = await _context.OrganizationFollowers.Where(u => u.FolloweeId == userParams.OrganizationId).ToListAsync();
+            var followedOrganizationId = follows.Select(i => i.FollowerId);
+            users = users.Where(u => followedOrganizationId.Contains(u.Id));
+
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<OrganizationPhoto> GetOrganizationPhoto(int id)
@@ -124,8 +147,6 @@ namespace ITWORK.API.Data
 
             users = users.Where(u => u.Id != userParams.UserId);
 
-
-
             if (userParams.Followers)
             {
                 var userFollowers = await GetUserFollows(userParams.UserId, userParams.Followers);
@@ -174,7 +195,6 @@ namespace ITWORK.API.Data
             return await _context.OrganizationFollowers.FirstOrDefaultAsync(u => 
                 u.FollowerId == userId && u.FolloweeId == organizationId);
         }
-
         
         public async Task<Message> GetMessage(int id)
         {

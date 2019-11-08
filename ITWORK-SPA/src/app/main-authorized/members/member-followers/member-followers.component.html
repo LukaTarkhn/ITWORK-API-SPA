@@ -1,14 +1,35 @@
-<h3>{{followersParam === 'Followers' ? 'My Followers' : 'I Follow'}} : {{pagination.totalItems}}</h3>
-<input type="radio" name="type" [(ngModel)]="followersParam" (click)="loadUsers()" value="Followers"> Followers<br>
-<input type="radio" name="type" [(ngModel)]="followersParam" (click)="loadUsers()" value="Followees"> Following<br>
-<div *ngFor="let user of users">
-  <app-member-card [user]="user"></app-member-card>
+<div class="UserFollows">
+    <h3>{{followersParam === 'Followers' ? 'My Followers' : 'I Follow'}} : {{pagination.totalItems}}</h3>
+    <input type="radio" name="type" [(ngModel)]="followersParam" (click)="loadUsers()" value="Followers"> Followers<br>
+    <input type="radio" name="type" [(ngModel)]="followersParam" (click)="loadUsers()" value="Followees"> Following<br>
+    <div *ngFor="let user of users">
+      <app-member-card [user]="user"></app-member-card>
+    </div>
+    
+    <pagination [boundaryLinks]="false" 
+                [totalItems]="pagination.totalItems"
+                [itemsPerPage]="pagination.itemsPerPage"
+                [(ngModel)]="pagination.currentPage"
+                (pageChanged)="pageChanged($event)"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
 </div>
 
-<pagination [boundaryLinks]="true" 
-            [totalItems]="pagination.totalItems"
-            [itemsPerPage]="pagination.itemsPerPage"
-            [(ngModel)]="pagination.currentPage"
-            (pageChanged)="pageChanged($event)"
-            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-</pagination>
+<div class="OrganizationFollows">
+    <h3>Followed organizations</h3><br>
+    <span *ngFor="let organization of organizations">
+          <app-organization-card [organization]="organization"></app-organization-card>
+    </span>
+    
+    
+    <pagination [boundaryLinks]="false" 
+                [totalItems]="organizationPagination.totalItems"
+                [itemsPerPage]="organizationPagination.itemsPerPage"
+                [(ngModel)]="organizationPagination.currentPage"
+                (pageChanged)="organizationPageChanged($event)"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+</div>
+
+
+

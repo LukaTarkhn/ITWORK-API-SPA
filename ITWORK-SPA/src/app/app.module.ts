@@ -23,11 +23,13 @@ import { MemberEditComponent } from './main-authorized/members/member-edit/membe
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberFollowersComponent } from './main-authorized/members/member-followers/member-followers.component';
 import { MemberFollowersResolver } from './_resolvers/member-followers.resolver';
+import { MemberFollowedOrganizationsResolver } from './_resolvers/member-followed-organizations.resolver';
 import { MemberMessagesComponent } from './main-authorized/members/member-messages/member-messages.component';
 import { MemberPhotoEditorComponent } from './main-authorized/members/member-edit/member-photo-editor/member-photo-editor.component';
 import { MessagesListComponent } from './main-authorized/members/messages-list/messages-list.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { FollowResolver } from './_resolvers/follower.resolver';
+import { OrganizationCardComponent } from './main-authorized/organization/organization-card/organization-card.component';
 import { OrganizationListComponent } from './main-authorized/organization/organization-list/organization-list.component';
 import { OrganizationCreateComponent } from './main-authorized/organization/organization-create/organization-create.component';
 import { OrganizationEditComponent } from './main-authorized/organization/organization-edit/organization-edit.component';
@@ -36,11 +38,12 @@ import { OrganizationFollowersComponent } from './main-authorized/organization/o
 // tslint:disable-next-line: max-line-length
 import { OrganizationPhotoEditorComponent } from './main-authorized/organization/organization-edit/organization-photo-editor/organization-photo-editor.component';
 // tslint:disable-next-line: max-line-length
-import { OrganizationHeaderphotoEditorComponent } from './main-authorized/organization/organization-edit/organization-headerphoto-editor/organization-headerphoto-editor.component'
+import { OrganizationHeaderphotoEditorComponent } from './main-authorized/organization/organization-edit/organization-headerphoto-editor/organization-headerphoto-editor.component';
 import { OrganizationEditResolver } from './_resolvers/organization-edit.resolver';
 import { OrganizationDetailResolver } from './_resolvers/organization-detail.resolver';
 import { OrganizationListResolver } from './_resolvers/organization-list.resolver';
 import { OrganizationFollowerResolver } from './_resolvers/organizationFollower.resolver';
+import { OrganizationFollowersResolver } from './_resolvers/organization-followers.resolver';
 import { VacancyListComponent } from './main-authorized/vacancy/vacancy-list/vacancy-list.component';
 
 // services
@@ -73,6 +76,7 @@ export function tokenGetter() {
       MemberPhotoEditorComponent,
       MemberMessagesComponent,
       MessagesListComponent,
+      OrganizationCardComponent,
       OrganizationListComponent,
       OrganizationCreateComponent,
       OrganizationEditComponent,
@@ -110,10 +114,12 @@ export function tokenGetter() {
       MemberListResolver,
       MemberEditResolver,
       MemberFollowersResolver,
+      MemberFollowedOrganizationsResolver,
       OrganizationEditResolver,
       OrganizationDetailResolver,
       OrganizationListResolver,
       OrganizationFollowerResolver,
+      OrganizationFollowersResolver,
       MessagesResolver,
       FollowResolver,
       PreventUnsavedChanged

@@ -7,6 +7,7 @@ import { Organization } from '../_models/organization';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Message } from '../_models/message';
+import { OrganizationFollow } from '../_models/organizationFollow';
 
 
 @Injectable({
@@ -67,7 +68,7 @@ export class UserService {
     return this.http.post(this.baseUrl + 'users/organizations', organization);
   }
 
-  getOrganizations(page?, itemsPerPage?, followesParam?): Observable<PaginatedResult<Organization[]>> {
+  getOrganizations(page?, itemsPerPage?, organizationFollowersParam?): Observable<PaginatedResult<Organization[]>> {
     const paginatedResult: PaginatedResult<Organization[]> = new PaginatedResult<Organization[]>();
 
     let params = new HttpParams();
@@ -76,6 +77,11 @@ export class UserService {
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
     }
+
+    if (organizationFollowersParam === 'Followees') {
+      params = params.append('Followees', 'true');
+    }
+
     return this.http.get<Organization[]>(this.baseUrl + 'users/organizations', { observe: 'response', params})
       .pipe(
         map(response => {
@@ -112,6 +118,27 @@ export class UserService {
     return this.http.get<Organization>(this.baseUrl + 'users/organizations/' + id + '/follows/' + recipientId);
   }
 
+  getOrganizationFollowers(organizationId, page?, itemsPerPage?): Observable<PaginatedResult<User[]>> {
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<User[]>(this.baseUrl + 'users/organizations/followers/' + organizationId, { observe: 'response', params})
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
+  }
   sendFollow(id: number, recipientId: number) {
     return this.http.post(this.baseUrl + 'users/' + id + '/follow/' + recipientId, {});
   }

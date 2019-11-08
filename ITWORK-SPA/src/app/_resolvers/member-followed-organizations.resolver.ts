@@ -8,15 +8,15 @@ import { Organization } from '../_models/organization';
 
 @Injectable()
 
-export class OrganizationListResolver implements Resolve<Organization[]> {
+export class MemberFollowedOrganizationsResolver implements Resolve<Organization[]> {
     pageNumber = 1;
     pageSize = 2;
-    followersParam = 'followed';
+    organizationFollowersParam = 'Followees';
 
     constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Organization[]> {
-        return this.userService.getOrganizations(this.pageNumber, this.pageSize, this.followersParam).pipe(
+        return this.userService.getOrganizations(this.pageNumber, this.pageSize, this.organizationFollowersParam).pipe(
             catchError(error => {
                 this.alertify.error('Problem retriving data');
                 this.router.navigate(['/vacancy']);

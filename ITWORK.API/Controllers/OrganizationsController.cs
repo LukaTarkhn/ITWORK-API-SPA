@@ -30,13 +30,31 @@ namespace ITWORK.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrganizations([FromQuery]OrganizationParams organizationParams)
         {
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            organizationParams.UserId = currentUserId;
+
             var organizations = await _repo.GetOrganizations(organizationParams);
 
             var organizationsToReturn = _mapper.Map<IEnumerable<OrganizationForListDto>>(organizations);
 
-             Response.AddPagination(organizations.CurrentPage, organizations.PageSize, organizations.TotalCount, organizations.TotalPages);
+            Response.AddPagination(organizations.CurrentPage, organizations.PageSize, organizations.TotalCount, organizations.TotalPages);
 
             return Ok(organizationsToReturn);
+        }
+
+        [HttpGet("followers/{id}")]
+        public async Task<IActionResult> GetOrganizationFollowers(int id, [FromQuery]UserParams userParams)
+        {
+            userParams.OrganizationId = id;
+
+            var users = await _repo.GetOrganizationFollowers(userParams);
+
+            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
+            return Ok(usersToReturn);
         }
 
         
@@ -46,7 +64,7 @@ namespace ITWORK.API.Controllers
             var orgFromRepo = await _repo.GetOrganization(userId, id);
 
             var organization = _mapper.Map<OrganizationForDetailedDto>(orgFromRepo);
-        
+
             return Ok(organization);
         }
 

@@ -1,3 +1,19 @@
-<p>
-  organization-followers works!
-</p>
+<div>
+    <h3>{{organization.name}}</h3> <br>
+    <span *ngFor="let user of users">
+          <app-member-card [user]="user"></app-member-card>
+    </span>
+    
+    <pagination [boundaryLinks]="false" 
+                [totalItems]="pagination.totalItems"
+                [itemsPerPage]="pagination.itemsPerPage"
+                [(ngModel)]="pagination.currentPage"
+                (pageChanged)="pageChanged($event)"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+</div>
+
+
+
+
+  

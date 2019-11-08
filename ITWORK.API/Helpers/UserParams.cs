@@ -12,7 +12,9 @@ namespace ITWORK.API.Helpers
         }
         
         public int UserId { get; set; }
+        public int OrganizationId { get; set; }
         public bool Followees { get; set; } = false;
         public bool Followers { get; set; } = false;
+        public bool Followed { get; set; } = false;
     }
 }

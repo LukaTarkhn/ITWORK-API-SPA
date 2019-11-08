@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Organization } from 'src/app/_models/organization';
 import { AuthService } from 'src/app/_services/auth.service';
-import { Follow } from 'src/app/_models/follow';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { OrganizationFollow } from 'src/app/_models/organizationFollow';
 
 @Component({
   selector: 'app-organization-detail',
@@ -13,16 +13,14 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 })
 export class OrganizationDetailComponent implements OnInit {
   organization: Organization;
-  follow: Follow;
+  follow: OrganizationFollow;
   constructor(private route: ActivatedRoute, private authService: AuthService,
               private userService: UserService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.organization = data.organization;
-    });
 
-    this.route.data.subscribe(data => {
       this.follow = data.follow;
     });
   }
